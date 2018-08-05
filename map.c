@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 22:39:34 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 14:42:16 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/05 16:10:06 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ static int	process_token(t_env *e, const char *str, size_t len, t_ip2d pos)
 		vec_append(&e->world.walls, &tmp_wall);
 		return (0);
 	}
-	SDL_SetError("Unknown token: line %zd, token %zd", pos.y + 1, pos.x + 1);
+	if (ft_strncmp(str, "_", 1) == 0)
+		return (0);
+	SDL_SetError("Unknown token \"%.*s\": line %zd, token %zd",
+		(int)len, str, pos.y + 1, pos.x + 1);
 	return (1);
 }
 
