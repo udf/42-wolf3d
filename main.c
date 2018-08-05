@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 00:58:41 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/05 16:38:22 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	draw(t_env *e)
 	set_draw_colour(e->ren, 0x808080);
 	fill_lower_half(e);
 
-	SDL_SetRenderDrawColor(e->ren, 0xFF, 0x00, 0x00, 0x00);
-	SDL_RenderDrawPoint(e->ren, 10, 10);
+	render(e);
 
 	SDL_RenderPresent(e->ren);
 }
@@ -128,11 +127,11 @@ int	main(int ac, char **av)
 	init_vectors(&e);
 	if (load_map(&e, av[1]))
 		die(&e, 1, NULL);
-	die(&e, 0, 0);
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		die(&e, 1, "Failed to initialize SDL: ");
 	e.w = 800;
 	e.h = 600;
+	e.fov = 90.0f;
 	e.win = SDL_CreateWindow("wolf3d",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, e.w, e.h, 0);
 	if (!e.win)

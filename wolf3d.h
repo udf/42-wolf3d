@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 00:02:54 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/05 16:42:51 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,18 @@ typedef struct		s_ip2d
 	ssize_t			x;
 	ssize_t			y;
 }					t_ip2d;
+
+typedef struct	s_frange
+{
+	float		s;
+	float		e;
+}				t_frange;
+
+typedef struct	s_lrange
+{
+	long		s;
+	long		e;
+}				t_lrange;
 
 typedef struct		s_player
 {
@@ -96,6 +108,7 @@ typedef struct		s_env
 	SDL_Renderer	*ren;
 	int				w;
 	int				h;
+	float			fov;
 	t_player		me;
 	t_world			world;
 }					t_env;
