@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 00:03:33 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 14:38:40 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/05 16:12:27 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static SDL_Surface	*texture_sys_free(t_vec *texas)
 		SDL_FreeSurface(textures[i].texture);
 		i++;
 	}
+	vec_free(texas);
 	return (NULL);
 }
 
