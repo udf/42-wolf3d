@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 16:44:17 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/05 16:54:52 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ typedef struct		s_env
 }					t_env;
 
 int				load_map(t_env *e, const char *path);
+
+void			render(t_env *e);
 
 size_t			seek_token(char **str);
 void			set_draw_colour(SDL_Renderer *ren, Uint32 col);

@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 16:38:22 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/05 16:56:08 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	loop(t_env *e)
 		draw(e);
 		process_input(e, (float)(SDL_GetTicks() - last_ticks) / 1000.0f);
 		last_ticks = SDL_GetTicks();
+		break ;
 	}
 }
 
