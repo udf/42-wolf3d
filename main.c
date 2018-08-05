@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/04 02:14:17 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/05 00:58:41 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,45 @@ void	die(t_env *e, int code, char *pre_msg)
 		ft_putstr_fd(pre_msg, 2);
 		ft_putendl_fd(SDL_GetError(), 2);
 	}
+	vec_free(&e->world.walls);
+	vec_free(&e->world.doors);
+	vec_free(&e->world.keys);
+	vec_free(&e->world.sprites);
+	texture_sys(TEXAS_FREE, NULL);
 	SDL_DestroyRenderer(e->ren);
 	SDL_DestroyWindow(e->win);
 	SDL_Quit();
 	exit(code);
 }
 
+void	fill_lower_half(t_env *e)
+{
+	int x;
+	int y;
+
+	y = e->h / 2;
+	while (y < e->h)
+	{
+		x = 0;
+		while (x < e->w)
+		{
+			SDL_RenderDrawPoint(e->ren, x, y);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw(t_env *e)
 {
-	SDL_SetRenderDrawColor(e->ren, 0x00, 0x00, 0x00, 0x00);
+	set_draw_colour(e->ren, 0x606060);
 	SDL_RenderClear(e->ren);
+	set_draw_colour(e->ren, 0x808080);
+	fill_lower_half(e);
+
 	SDL_SetRenderDrawColor(e->ren, 0xFF, 0x00, 0x00, 0x00);
 	SDL_RenderDrawPoint(e->ren, 10, 10);
+
 	SDL_RenderPresent(e->ren);
 }
 
@@ -84,14 +111,30 @@ void	loop(t_env *e)
 	}
 }
 
-int	main(void)
+void	init_vectors(t_env *e)
+{
+	vec_init(&e->world.walls, sizeof(t_wall), 0);
+	vec_init(&e->world.doors, sizeof(t_door), 0);
+	vec_init(&e->world.keys, sizeof(t_key), 0);
+	vec_init(&e->world.sprites, sizeof(t_sprite), 0);
+}
+
+int	main(int ac, char **av)
 {
 	static t_env e;
 
+	if (ac <= 1)
+		die(&e, 1, "No map file provided");
+	init_vectors(&e);
+	if (load_map(&e, av[1]))
+		die(&e, 1, NULL);
+	die(&e, 0, 0);
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		die(&e, 1, "Failed to initialize SDL: ");
+	e.w = 800;
+	e.h = 600;
 	e.win = SDL_CreateWindow("wolf3d",
-		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
+		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, e.w, e.h, 0);
 	if (!e.win)
 		die(&e, 1, "Failed to create window: ");
 	e.ren = SDL_CreateRenderer(e.win, -1,
@@ -99,6 +142,6 @@ int	main(void)
 	if (!e.ren)
 		die(&e, 1, "Failed to create renderer: ");
 	loop(&e);
-	die(&e, 0, 0);
+	die(&e, 0, "Thanks for playing");
 	return 0;
 }

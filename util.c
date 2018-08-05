@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util_math.c                                        :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/04 02:00:32 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/04 21:07:07 by mhoosen          ###   ########.fr       */
+/*   Created: 2018/08/04 13:52:13 by mhoosen           #+#    #+#             */
+/*   Updated: 2018/08/04 22:59:34 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-float	sin_deg(float deg)
+size_t	seek_token(char **str)
 {
-	const float pi_over_180 = (float)(M_PI / 180.0);
+	char	*iter;
+	size_t		tok_len;
 
-	return (sinf(deg * pi_over_180));
+	iter = *str;
+	while (iter && *iter && *iter == ' ')
+		iter++;
+	tok_len = 0;
+	*str = iter;
+	while (iter && iter[tok_len] && iter[tok_len] != ' ')
+		tok_len++;
+	return (tok_len);
 }
 
-float	cos_deg(float deg)
+void	set_draw_colour(SDL_Renderer *ren, Uint32 col)
 {
-	const float pi_over_180 = (float)(M_PI / 180.0);
-
-	return (cosf(deg * pi_over_180));
-}
-
-float	tan_deg(float deg)
-{
-	const float pi_over_180 = (float)(M_PI / 180.0);
-
-	return (tanf(deg * pi_over_180));
+	SDL_SetRenderDrawColor(ren,
+		(col >> 16) & 0xFF, (col >> 8) & 0xFF, col & 0xFF, 0xFF);
 }
