@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 16:56:08 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/05 17:29:43 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	die(t_env *e, int code, char *pre_msg)
 		ft_putstr_fd(pre_msg, 2);
 		ft_putendl_fd(SDL_GetError(), 2);
 	}
-	vec_free(&e->world.walls);
-	vec_free(&e->world.doors);
-	vec_free(&e->world.keys);
-	vec_free(&e->world.sprites);
+	vec_free(&e->walls);
+	vec_free(&e->doors);
+	vec_free(&e->keys);
+	vec_free(&e->sprites);
 	texture_sys(TEXAS_FREE, NULL);
 	SDL_DestroyRenderer(e->ren);
 	SDL_DestroyWindow(e->win);
@@ -113,10 +113,10 @@ void	loop(t_env *e)
 
 void	init_vectors(t_env *e)
 {
-	vec_init(&e->world.walls, sizeof(t_wall), 0);
-	vec_init(&e->world.doors, sizeof(t_door), 0);
-	vec_init(&e->world.keys, sizeof(t_key), 0);
-	vec_init(&e->world.sprites, sizeof(t_sprite), 0);
+	vec_init(&e->walls, sizeof(t_wall), 0);
+	vec_init(&e->doors, sizeof(t_door), 0);
+	vec_init(&e->keys, sizeof(t_key), 0);
+	vec_init(&e->sprites, sizeof(t_sprite), 0);
 }
 
 int	main(int ac, char **av)

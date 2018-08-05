@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 22:39:34 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 16:32:25 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/05 17:29:30 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	process_token(t_env *e, const char *str, size_t len, t_ip2d pos)
 		tmp_wall.y = (int)pos.y;
 		if (get_wall_tex(str[1], &tmp_wall.tex))
 			return (1);
-		vec_append(&e->world.walls, &tmp_wall);
+		vec_append(&e->walls, &tmp_wall);
 		return (0);
 	}
 	if (*str == '@' && len == 2)

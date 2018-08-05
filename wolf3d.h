@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 16:54:52 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/05 17:29:04 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,6 @@ typedef struct		s_sprite
 	SDL_Surface		*tex;
 }					t_sprite;
 
-typedef struct		s_world
-{
-	t_vec			walls;
-	t_vec			doors;
-	t_vec			keys;
-	t_vec			sprites;
-}					t_world;
-
 typedef struct		s_env
 {
 	SDL_Window		*win;
@@ -98,7 +90,10 @@ typedef struct		s_env
 	int				h;
 	float			fov;
 	t_player		me;
-	t_world			world;
+	t_vec			walls;
+	t_vec			doors;
+	t_vec			keys;
+	t_vec			sprites;
 }					t_env;
 
 int				load_map(t_env *e, const char *path);
