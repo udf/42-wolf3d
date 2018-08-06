@@ -6,11 +6,13 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 17:29:43 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/06 11:47:01 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+// TODO texas convert to rgba on load instead of keeping in source format
 
 void	die(t_env *e, int code, char *pre_msg)
 {
@@ -80,8 +82,8 @@ void	process_input(t_env *e, float secs)
 		direction = 1.0f;
 		if (state[SDL_SCANCODE_DOWN])
 			direction *= -1.0f;
-		e->me.pos.x += sin_deg(e->me.rot) * secs * direction;
-		e->me.pos.y += cos_deg(e->me.rot) * secs * direction;
+		e->me.pos.x += cos_deg(e->me.rot) * secs * direction;
+		e->me.pos.y += sin_deg(e->me.rot) * secs * direction;
 	}
 	if (state[SDL_SCANCODE_LEFT] || state[SDL_SCANCODE_RIGHT])
 	{
@@ -89,8 +91,8 @@ void	process_input(t_env *e, float secs)
 		if (state[SDL_SCANCODE_LEFT])
 			direction *= -1.0f;
 		e->me.rot += secs * direction * 90.f;
+		e->me.rot = mod_deg(e->me.rot);
 	}
-	printf("%f %f (%f)\n", e->me.pos.x, e->me.pos.y, e->me.rot);
 }
 
 void	loop(t_env *e)
@@ -107,7 +109,6 @@ void	loop(t_env *e)
 		draw(e);
 		process_input(e, (float)(SDL_GetTicks() - last_ticks) / 1000.0f);
 		last_ticks = SDL_GetTicks();
-		break ;
 	}
 }
 

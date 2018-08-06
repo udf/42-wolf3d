@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 23:56:56 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 00:29:50 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/06 09:55:57 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,27 @@
 # define TEXAS_GET 0
 # define TEXAS_FREE 1
 
-typedef struct		s_tex
+typedef struct	s_pixel
 {
-	char			filename[16];
-	SDL_Surface		*texture;
-}					t_tex;
+	Uint8		a;
+	Uint8		r;
+	Uint8		g;
+	Uint8		b;
+}				t_pixel;
 
-SDL_Surface			*texture_sys(int func, char *filename);
+typedef struct	s_texture
+{
+	t_pixel		*data;
+	int			w;
+	int			h;
+}				t_texture;
+
+typedef struct	s_loaded_texture
+{
+	char		filename[16];
+	t_texture	*texture;
+}				t_loaded_texture;
+
+t_texture		*texture_sys(int func, char *filename);
 
 #endif

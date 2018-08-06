@@ -6,21 +6,87 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 00:03:33 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 16:12:27 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/06 10:27:36 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "texture_sys.h"
 
-static SDL_Surface	*texture_sys_get(t_vec *texas, char *filename)
+static Uint32		surface_get_pixel(SDL_Surface *surface, int x, int y)
 {
-	char		path[128];
-	size_t		i;
-	t_tex		*textures;
-	t_tex		ret;
+	const int bpp = surface->format->BytesPerPixel;
+	const Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
+
+	if (bpp == 1)
+		return *p;
+	if (bpp == 2)
+		return (*(Uint16 *)p);
+	if (bpp == 3)
+	{
+		if(SDL_BYTEORDER == SDL_BIG_ENDIAN)
+			return ((Uint32)(p[0] << 16 | p[1] << 8 | p[2]));
+		else
+			return ((Uint32)(p[0] | p[1] << 8 | p[2] << 16));
+	}
+	if (bpp == 4)
+		return (*(Uint32 *)p);
+	return (0);
+}
+
+static void			surface_to_tex(SDL_Surface	*surface, t_texture	*tex)
+{
+	int			x;
+	int			y;
+	Uint32		pixel;
+	int			i;
+
+	y = 0;
+	tex->w = surface->w;
+	tex->h = surface->h;
+	tex->data = ft_memalloc((size_t)tex->w * (size_t)tex->h * sizeof(t_pixel));
+	if (!tex->data)
+		return ;
+	while (y < surface->h)
+	{
+		x = 0;
+		while (x < surface->w)
+		{
+			i = x + y * tex->w;
+			pixel = surface_get_pixel(surface, x, y);
+			SDL_GetRGBA(pixel, surface->format, &tex->data[i].r,
+				&tex->data[i].g, &tex->data[i].b, &tex->data[i].a);
+			x++;
+		}
+		y++;
+	}
+}
+
+static t_texture	*load_bmp(char *path)
+{
+	SDL_Surface	*surface;
+	t_texture	*tex;
+
+	if (!(surface = SDL_LoadBMP(path)))
+		return (NULL);
+	SDL_LockSurface(surface);
+	tex = ft_memalloc(sizeof(t_texture));
+	surface_to_tex(surface, tex);
+	SDL_UnlockSurface(surface);
+	SDL_FreeSurface(surface);
+	if (!tex->data)
+		ft_memdel((void **)&tex);
+	return (tex);
+}
+
+static t_texture	*texture_sys_get(t_vec *texas, char *filename)
+{
+	char				path[128];
+	size_t				i;
+	t_loaded_texture	*textures;
+	t_loaded_texture	ret;
 
 	i = 0;
-	textures = (t_tex *)texas->data;
+	textures = (t_loaded_texture *)texas->data;
 	while (i < texas->length)
 	{
 		if (ft_strncmp(textures[i].filename, filename, 16) == 0)
@@ -34,36 +100,35 @@ static SDL_Surface	*texture_sys_get(t_vec *texas, char *filename)
 	ft_strncat(path, ret.filename, 127);
 	ft_strncat(path, ".bmp", 127);
 	printf("texas: Loading %s from %s\n", ret.filename, path);
-	ret.texture = SDL_LoadBMP(path);
-	SDL_LockSurface(ret.texture);
+	ret.texture = load_bmp(path);
 	if (ret.texture)
 		vec_append(texas, &ret);
 	return (ret.texture);
 }
 
-static SDL_Surface	*texture_sys_free(t_vec *texas)
+static t_texture	*texture_sys_free(t_vec *texas)
 {
-	size_t		i;
-	t_tex		*textures;
+	size_t				i;
+	t_loaded_texture	*textures;
 	i = 0;
 
-	textures = (t_tex *)texas->data;
+	textures = (t_loaded_texture *)texas->data;
 	while (i < texas->length)
 	{
-		SDL_UnlockSurface(textures[i].texture);
-		SDL_FreeSurface(textures[i].texture);
+		free(textures[i].texture->data);
+		free(textures[i].texture);
 		i++;
 	}
 	vec_free(texas);
 	return (NULL);
 }
 
-SDL_Surface			*texture_sys(int func, char *filename)
+t_texture			*texture_sys(int func, char *filename)
 {
 	static t_vec	textures;
 
 	if (textures.type_size == 0)
-		vec_init(&textures, sizeof(t_tex), 0);
+		vec_init(&textures, sizeof(t_loaded_texture), 0);
 	if (func == TEXAS_GET)
 		return (texture_sys_get(&textures, filename));
 	if (func == TEXAS_FREE)

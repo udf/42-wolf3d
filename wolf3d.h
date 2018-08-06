@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 17:29:04 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/06 11:44:24 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ typedef struct		s_player
 
 typedef struct		s_walltex
 {
-	SDL_Surface		*n;
-	SDL_Surface		*s;
-	SDL_Surface		*e;
-	SDL_Surface		*w;
+	t_texture		*n;
+	t_texture		*s;
+	t_texture		*e;
+	t_texture		*w;
 }					t_walltex;
 
 typedef struct		s_wall
@@ -64,14 +64,14 @@ typedef struct		s_door
 {
 	int				x;
 	int				y;
-	SDL_Surface		*tex;
+	t_texture		*tex;
 }					t_door;
 
 typedef struct		s_key
 {
 	int				x;
 	int				y;
-	SDL_Surface		*tex;
+	t_texture		*tex;
 	char			held;
 }					t_key;
 
@@ -79,8 +79,23 @@ typedef struct		s_sprite
 {
 	int				x;
 	int				y;
-	SDL_Surface		*tex;
+	t_texture		*tex;
 }					t_sprite;
+
+typedef struct		s_hit
+{
+	t_p2d			p;
+	float			x_perc;
+	float			dist;
+	t_texture		*tex;
+}					t_hit;
+
+typedef struct		s_ray
+{
+	t_p2d			pos;
+	t_p2d			m;
+	float			rot;
+}					t_ray;
 
 typedef struct		s_env
 {
@@ -102,9 +117,15 @@ void			render(t_env *e);
 
 size_t			seek_token(char **str);
 void			set_draw_colour(SDL_Renderer *ren, Uint32 col);
+int				iroundf(float v);
+float			mod_deg(float deg);
+t_frange		make_fov_range(float rot, float fov);
+int				is_angle_between(float a, float start, float end);
 
 float			sin_deg(float deg);
 float			cos_deg(float deg);
 float			tan_deg(float deg);
+float			p2d_dist(t_p2d a, t_p2d b);
+float			p2d_angle(t_p2d a, t_p2d b);
 
 #endif
