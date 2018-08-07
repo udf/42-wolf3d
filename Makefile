@@ -6,14 +6,14 @@
 #    By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/25 07:39:20 by mhoosen           #+#    #+#              #
-#    Updated: 2018/08/07 16:14:20 by mhoosen          ###   ########.fr        #
+#    Updated: 2018/08/07 16:44:26 by mhoosen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 HEADERS=wolf3d.h texture_sys.h
 SRCS=main.c render.c map.c util.c util_math.c texture_sys.c
 NAME=wolf3d
-CFLAGS=-Wall -Wextra -Werror -Wconversion -g
+CFLAGS=-Wall -Wextra -Werror -Wconversion -O3
 LIBS=-I libft/includes -L libft/ -lft -lm
 SDL2_CONFIG=SDL2/bin/sdl2-config
 SDL_SRCS=SDL2-2.0.8

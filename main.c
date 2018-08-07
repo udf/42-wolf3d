@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/07 16:28:52 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/07 16:50:12 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ void	draw(t_env *e)
 	SDL_LockTexture(e->buf.tex, NULL, (void **)&e->buf.pixels, &e->buf.pitch);
 	SDL_RenderClear(e->ren);
 	draw_background(e);
-
 	render(e);
-
 	SDL_UnlockTexture(e->buf.tex);
 	SDL_RenderCopy(e->ren, e->buf.tex, NULL, NULL);
 	SDL_RenderPresent(e->ren);
