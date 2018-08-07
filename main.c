@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/06 11:47:01 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/07 15:11:00 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	main(int ac, char **av)
 		die(&e, 1, "Failed to initialize SDL: ");
 	e.w = 800;
 	e.h = 600;
-	e.fov = 90.0f;
+	e.fov = 75.0f;
 	e.win = SDL_CreateWindow("wolf3d",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, e.w, e.h, 0);
 	if (!e.win)
