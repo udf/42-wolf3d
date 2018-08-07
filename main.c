@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/07 16:50:12 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/07 17:00:20 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,26 @@ void	die(t_env *e, int code, char *pre_msg)
 
 void	draw_background(t_env *e)
 {
-	const Uint32	upper = 0x60606060;
-	const Uint32	lower = 0x80808080;
 	int x;
 	int y;
 
 	y = 0;
+	while (y < e->h / 2)
+	{
+		x = 0;
+		while (x < e->w)
+		{
+			*buf_pixel(&e->buf, x, y) = 0x60606060;
+			x++;
+		}
+		y++;
+	}
 	while (y < e->h)
 	{
 		x = 0;
 		while (x < e->w)
 		{
-			*buf_pixel(&e->buf, x, y) = (y < e->h / 2 ? upper : lower);
+			*buf_pixel(&e->buf, x, y) = 0x80808080;
 			x++;
 		}
 		y++;
