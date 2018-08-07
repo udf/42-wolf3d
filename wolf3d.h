@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/06 11:44:24 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/07 15:59:45 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,18 @@ typedef struct		s_ray
 	float			rot;
 }					t_ray;
 
+typedef struct		s_buf
+{
+	SDL_Texture		*tex;
+	Uint32			*pixels;
+	int				pitch;
+}					t_buf;
+
 typedef struct		s_env
 {
 	SDL_Window		*win;
 	SDL_Renderer	*ren;
+	t_buf			buf;
 	int				w;
 	int				h;
 	float			fov;
@@ -121,6 +129,7 @@ int				iroundf(float v);
 float			mod_deg(float deg);
 t_frange		make_fov_range(float rot, float fov);
 int				is_angle_between(float a, float start, float end);
+Uint32			*buf_pixel(t_buf *buf, int x, int y);
 
 float			sin_deg(float deg);
 float			cos_deg(float deg);

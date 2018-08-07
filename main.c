@@ -6,13 +6,11 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/07 15:11:00 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/07 16:28:52 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
-// TODO texas convert to rgba on load instead of keeping in source format
 
 void	die(t_env *e, int code, char *pre_msg)
 {
@@ -26,24 +24,27 @@ void	die(t_env *e, int code, char *pre_msg)
 	vec_free(&e->keys);
 	vec_free(&e->sprites);
 	texture_sys(TEXAS_FREE, NULL);
+	SDL_DestroyTexture(e->buf.tex);
 	SDL_DestroyRenderer(e->ren);
 	SDL_DestroyWindow(e->win);
 	SDL_Quit();
 	exit(code);
 }
 
-void	fill_lower_half(t_env *e)
+void	draw_background(t_env *e)
 {
+	const Uint32	upper = 0x60606060;
+	const Uint32	lower = 0x80808080;
 	int x;
 	int y;
 
-	y = e->h / 2;
+	y = 0;
 	while (y < e->h)
 	{
 		x = 0;
 		while (x < e->w)
 		{
-			SDL_RenderDrawPoint(e->ren, x, y);
+			*buf_pixel(&e->buf, x, y) = (y < e->h / 2 ? upper : lower);
 			x++;
 		}
 		y++;
@@ -52,13 +53,14 @@ void	fill_lower_half(t_env *e)
 
 void	draw(t_env *e)
 {
-	set_draw_colour(e->ren, 0x606060);
+	SDL_LockTexture(e->buf.tex, NULL, (void **)&e->buf.pixels, &e->buf.pitch);
 	SDL_RenderClear(e->ren);
-	set_draw_colour(e->ren, 0x808080);
-	fill_lower_half(e);
+	draw_background(e);
 
 	render(e);
 
+	SDL_UnlockTexture(e->buf.tex);
+	SDL_RenderCopy(e->ren, e->buf.tex, NULL, NULL);
 	SDL_RenderPresent(e->ren);
 }
 
@@ -142,6 +144,10 @@ int	main(int ac, char **av)
 		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (!e.ren)
 		die(&e, 1, "Failed to create renderer: ");
+	e.buf.tex = SDL_CreateTexture(e.ren, SDL_PIXELFORMAT_ARGB32,
+		SDL_TEXTUREACCESS_STREAMING, e.w, e.h);
+	if (!e.buf.tex)
+		die(&e, 1, "Failed to create texture: ");
 	loop(&e);
 	die(&e, 0, "Thanks for playing");
 	return 0;

@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 13:52:13 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/06 11:45:47 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/07 16:22:16 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ int		is_angle_between(float a, float start, float end)
 	return (a >= start && a <= end);
 }
 
-void	set_draw_colour(SDL_Renderer *ren, Uint32 col)
+Uint32	*buf_pixel(t_buf *buf, int x, int y)
 {
-	SDL_SetRenderDrawColor(ren,
-		(col >> 16) & 0xFF, (col >> 8) & 0xFF, col & 0xFF, 0xFF);
+	const int pitch = buf->pitch / (int)sizeof(Uint32);
+
+	return (&buf->pixels[x + pitch * y]);
 }

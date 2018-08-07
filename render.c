@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 16:34:45 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/06 12:04:38 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/07 16:02:13 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,7 @@ static void	draw_column(t_env *e, int x, t_hit *hit)
 					(t_frange){0.0f, (float)(hit->tex->h - 1)}));
 		tex_x = iroundf(hit->x_perc * (float)(hit->tex->w - 1));
 		pix = hit->tex->data[tex_x + tex_y * hit->tex->w];
-		SDL_SetRenderDrawColor(e->ren, pix.r, pix.g, pix.b, pix.a);
-		SDL_RenderDrawPoint(e->ren, x, iroundf(y));
+		*buf_pixel(&e->buf, x, iroundf(y)) = *((Uint32 *)&pix);
 		y++;
 	}
 }
