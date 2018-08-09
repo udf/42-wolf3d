@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 18:50:02 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 21:34:41 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 22:17:08 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ int			load_map(t_env *e, const char *path)
 		line_n++;
 	}
 	close(fd);
+	e->world_h = line_n;
 	return (0);
 }

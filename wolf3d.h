@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 21:35:58 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 22:16:55 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct		s_env
 	t_player		me;
 	t_vec			world;
 	ssize_t			world_w;
+	ssize_t			world_h;
 }					t_env;
 
 int				load_map(t_env *e, const char *path);
