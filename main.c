@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/07 17:00:20 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 16:24:51 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	process_input(t_env *e, float secs)
 
 	if (state[SDL_SCANCODE_UP] || state[SDL_SCANCODE_DOWN])
 	{
-		direction = 1.0f;
+		direction = 2.0f;
 		if (state[SDL_SCANCODE_DOWN])
 			direction *= -1.0f;
 		e->me.pos.x += cos_deg(e->me.rot) * secs * direction;
