@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 18:49:53 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 21:35:17 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 21:49:29 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	process_key_token(t_cell *cell, char c, t_ip2d pos)
 	cell->key.colour = c;
 	cell->key.x = (float)pos.x + 0.5f;
 	cell->key.y = (float)pos.y + 0.5f;
-	cell->type = DOOR;
+	cell->type = KEY;
 }
 
 void	process_prop_token(t_cell *cell, char c)
