@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 18:13:29 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 19:37:45 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	die(t_env *e, int code, char *pre_msg)
 		ft_putendl_fd(SDL_GetError(), 2);
 	}
 	vec_free(&e->world);
-	texture_sys(TEXAS_FREE, NULL);
+	texture_sys_free(NULL);
 	SDL_DestroyTexture(e->buf.tex);
 	SDL_DestroyRenderer(e->ren);
 	SDL_DestroyWindow(e->win);

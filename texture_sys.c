@@ -6,11 +6,20 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 00:03:33 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/06 10:27:36 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 19:37:35 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "texture_sys.h"
+
+static t_vec		*_get_vec(void)
+{
+	static t_vec	textures;
+
+	if (textures.type_size == 0)
+		vec_init(&textures, sizeof(t_loaded_texture), 0);
+	return (&textures);
+}
 
 static Uint32		surface_get_pixel(SDL_Surface *surface, int x, int y)
 {
@@ -78,7 +87,7 @@ static t_texture	*load_bmp(char *path)
 	return (tex);
 }
 
-static t_texture	*texture_sys_get(t_vec *texas, char *filename)
+t_texture			*texture_sys_get(char *filename)
 {
 	char				path[128];
 	size_t				i;
@@ -86,8 +95,8 @@ static t_texture	*texture_sys_get(t_vec *texas, char *filename)
 	t_loaded_texture	ret;
 
 	i = 0;
-	textures = (t_loaded_texture *)texas->data;
-	while (i < texas->length)
+	textures = (t_loaded_texture *)_get_vec()->data;
+	while (i < _get_vec()->length)
 	{
 		if (ft_strncmp(textures[i].filename, filename, 16) == 0)
 			return (textures[i].texture);
@@ -102,37 +111,23 @@ static t_texture	*texture_sys_get(t_vec *texas, char *filename)
 	printf("texas: Loading %s from %s\n", ret.filename, path);
 	ret.texture = load_bmp(path);
 	if (ret.texture)
-		vec_append(texas, &ret);
+		vec_append(_get_vec(), &ret);
 	return (ret.texture);
 }
 
-static t_texture	*texture_sys_free(t_vec *texas)
+void				texture_sys_free()
 {
 	size_t				i;
 	t_loaded_texture	*textures;
 	i = 0;
 
-	textures = (t_loaded_texture *)texas->data;
-	while (i < texas->length)
+	//textures = (t_loaded_texture *)texas->data;
+	textures = (t_loaded_texture *)(_get_vec()->data);
+	while (i < _get_vec()->length)
 	{
 		free(textures[i].texture->data);
 		free(textures[i].texture);
 		i++;
 	}
-	vec_free(texas);
-	return (NULL);
-}
-
-t_texture			*texture_sys(int func, char *filename)
-{
-	static t_vec	textures;
-
-	if (textures.type_size == 0)
-		vec_init(&textures, sizeof(t_loaded_texture), 0);
-	if (func == TEXAS_GET)
-		return (texture_sys_get(&textures, filename));
-	if (func == TEXAS_FREE)
-		return (texture_sys_free(&textures));
-	SDL_SetError("Texture system: unknown function");
-	return (NULL);
+	vec_free(_get_vec());
 }
