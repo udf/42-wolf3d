@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/07 15:59:45 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 19:19:16 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "vec.h"
 
 # include "texture_sys.h"
+# include "world.h"
 
 # include <stdio.h>
 
@@ -45,58 +46,6 @@ typedef struct		s_player
 	float			rot;
 }					t_player;
 
-typedef struct		s_walltex
-{
-	t_texture		*n;
-	t_texture		*s;
-	t_texture		*e;
-	t_texture		*w;
-}					t_walltex;
-
-typedef struct		s_wall
-{
-	int				x;
-	int				y;
-	t_walltex		tex;
-}					t_wall;
-
-typedef struct		s_door
-{
-	int				x;
-	int				y;
-	t_texture		*tex;
-}					t_door;
-
-typedef struct		s_key
-{
-	int				x;
-	int				y;
-	t_texture		*tex;
-	char			held;
-}					t_key;
-
-typedef struct		s_sprite
-{
-	int				x;
-	int				y;
-	t_texture		*tex;
-}					t_sprite;
-
-typedef struct		s_hit
-{
-	t_p2d			p;
-	float			x_perc;
-	float			dist;
-	t_texture		*tex;
-}					t_hit;
-
-typedef struct		s_ray
-{
-	t_p2d			pos;
-	t_p2d			m;
-	float			rot;
-}					t_ray;
-
 typedef struct		s_buf
 {
 	SDL_Texture		*tex;
@@ -113,28 +62,30 @@ typedef struct		s_env
 	int				h;
 	float			fov;
 	t_player		me;
-	t_vec			walls;
-	t_vec			doors;
-	t_vec			keys;
-	t_vec			sprites;
+	t_vec			world;
+	ssize_t			world_w;
 }					t_env;
 
 int				load_map(t_env *e, const char *path);
+void			process_player_token(t_cell *cell, char c, t_env *e, t_ip2d p);
+void			process_wall_token(t_cell *cell, char c);
+void			process_door_token(t_cell *cell, char c);
+void			process_key_token(t_cell *cell, char c);
+void			process_prop_token(t_cell *cell, char c);
 
 void			render(t_env *e);
 
 size_t			seek_token(char **str);
-void			set_draw_colour(SDL_Renderer *ren, Uint32 col);
+Uint32			*buf_pixel(t_buf *buf, int x, int y);
 int				iroundf(float v);
 float			mod_deg(float deg);
 t_frange		make_fov_range(float rot, float fov);
-int				is_angle_between(float a, float start, float end);
-Uint32			*buf_pixel(t_buf *buf, int x, int y);
+int				is_angle_between(float a, float start, float end); // TODO: check usage
 
 float			sin_deg(float deg);
 float			cos_deg(float deg);
 float			tan_deg(float deg);
-float			p2d_dist(t_p2d a, t_p2d b);
-float			p2d_angle(t_p2d a, t_p2d b);
+float			p2d_dist(t_p2d a, t_p2d b); // TODO: check usage
+float			p2d_angle(t_p2d a, t_p2d b); // TODO: check usage
 
 #endif

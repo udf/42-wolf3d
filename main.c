@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 16:24:51 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 18:13:29 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	die(t_env *e, int code, char *pre_msg)
 		ft_putstr_fd(pre_msg, 2);
 		ft_putendl_fd(SDL_GetError(), 2);
 	}
-	vec_free(&e->walls);
-	vec_free(&e->doors);
-	vec_free(&e->keys);
-	vec_free(&e->sprites);
+	vec_free(&e->world);
 	texture_sys(TEXAS_FREE, NULL);
 	SDL_DestroyTexture(e->buf.tex);
 	SDL_DestroyRenderer(e->ren);
@@ -120,23 +117,16 @@ void	loop(t_env *e)
 	}
 }
 
-void	init_vectors(t_env *e)
-{
-	vec_init(&e->walls, sizeof(t_wall), 0);
-	vec_init(&e->doors, sizeof(t_door), 0);
-	vec_init(&e->keys, sizeof(t_key), 0);
-	vec_init(&e->sprites, sizeof(t_sprite), 0);
-}
-
 int	main(int ac, char **av)
 {
 	static t_env e;
 
 	if (ac <= 1)
 		die(&e, 1, "No map file provided");
-	init_vectors(&e);
+	vec_init(&e.world, sizeof(t_cell), 0);
 	if (load_map(&e, av[1]))
 		die(&e, 1, NULL);
+	die(&e, 1, "load map end");
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		die(&e, 1, "Failed to initialize SDL: ");
 	e.w = 800;
