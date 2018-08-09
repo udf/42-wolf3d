@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 16:34:45 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 21:50:57 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 22:15:34 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,16 @@ void		render(t_env *e)
 				(int)((x - e->me.pos.x) * 32 + 400),
 				(int)((y - e->me.pos.y) * 32 + 300),
 				(float)cell->door.anim_state / 100.0f);
+		i++;
+	}
+	i = 0;
+	while (i < e->world.length)
+	{
+		cell = vec_get(&e->world, i);
 		if (cell->type == KEY)
 			copy_tex(&e->buf, cell->key.tex,
-				(int)((x - e->me.pos.x) * 32 + 400),
-				(int)((y - e->me.pos.y) * 32 + 300),
+				(int)((cell->key.x - e->me.pos.x) * 32 + 400),
+				(int)((cell->key.y - e->me.pos.y) * 32 + 300),
 				cell->key.held ? 1.0f : 0.0f);
 		i++;
 	}
