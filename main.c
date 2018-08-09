@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 19:37:45 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 20:33:52 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ int	main(int ac, char **av)
 	vec_init(&e.world, sizeof(t_cell), 0);
 	if (load_map(&e, av[1]))
 		die(&e, 1, NULL);
-	die(&e, 1, "load map end");
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		die(&e, 1, "Failed to initialize SDL: ");
 	e.w = 800;
