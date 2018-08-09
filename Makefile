@@ -6,12 +6,13 @@
 #    By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/25 07:39:20 by mhoosen           #+#    #+#              #
-#    Updated: 2018/08/09 18:53:28 by mhoosen          ###   ########.fr        #
+#    Updated: 2018/08/09 22:38:46 by mhoosen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 HEADERS=wolf3d.h world.h texture_sys.h
-SRCS=main.c render.c map.c map_token.c util.c util_math.c texture_sys.c
+SRCS=main.c collision.c render.c map.c map_token.c util.c util_math.c \
+texture_sys.c
 NAME=wolf3d
 CFLAGS=-Wall -Wextra -Werror -Wconversion -g
 LIBS=-I libft/includes -L libft/ -lft -lm
