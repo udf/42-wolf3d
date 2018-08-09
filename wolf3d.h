@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 19:19:16 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 21:35:58 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int				load_map(t_env *e, const char *path);
 void			process_player_token(t_cell *cell, char c, t_env *e, t_ip2d p);
 void			process_wall_token(t_cell *cell, char c);
 void			process_door_token(t_cell *cell, char c);
-void			process_key_token(t_cell *cell, char c);
+void			process_key_token(t_cell *cell, char c, t_ip2d pos);
 void			process_prop_token(t_cell *cell, char c);
 
 void			render(t_env *e);

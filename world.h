@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 16:58:10 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 17:52:02 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 21:34:16 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct			s_cell_door
 **     held is only reset when this value crosses 0
 ** held: if a key is held by the player or not
 ** colour: The colour of door that this key can open
+** x, y: position of the key
 */
 typedef struct			s_cell_key
 {
@@ -66,6 +67,8 @@ typedef struct			s_cell_key
 	short				respawn_ticks;
 	char				held;
 	char				colour;
+	float				x;
+	float				y;
 }						t_cell_key;
 
 /*

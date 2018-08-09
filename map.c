@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 18:50:02 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 19:20:26 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/09 21:34:41 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ static int	process_token(t_env *e, char *str, size_t len, t_ip2d pos)
 	if (str[0] == 'D')
 		process_door_token(&cell, str[1]);
 	if (str[0] == 'K')
-		process_key_token(&cell, str[1]);
+		process_key_token(&cell, str[1], pos);
 	if (str[0] == '^')
-		process_key_token(&cell, 0);
+		process_key_token(&cell, 0, pos);
 	if (str[0] == 'P')
 		process_prop_token(&cell, str[1]);
 	if (str[0] == '@')
 		process_player_token(&cell, str[1], e, pos);
 	if (cell.type == UNKNOWN)
-		return (SDL_SetError("Unknown token \"%.*s\" on line %zd, token %zd",
-			(int)len, str, pos.y + 1, pos.x + 1));
+		return (SDL_SetError("%s\nUnknown token \"%.*s\" on line %zd;token %zd",
+			SDL_GetError(), (int)len, str, pos.y + 1, pos.x + 1));
 	vec_append(&e->world, &cell);
 	return (0);
 }
