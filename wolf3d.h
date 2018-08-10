@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 22:38:07 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 12:34:27 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include "vec.h"
 
 # include "texture_sys.h"
-# include "world.h"
 
 # include <stdio.h>
 
@@ -40,10 +39,16 @@ typedef struct		s_ip2d
 	ssize_t			y;
 }					t_ip2d;
 
+# include "world.h"
+
 typedef struct		s_player
 {
 	t_p2d			pos;
 	float			rot;
+	t_ip2d			touched_cell;
+	t_cell_key		*key1;
+	t_cell_key		*key2;
+	char			exit;
 }					t_player;
 
 typedef struct		s_buf
@@ -82,6 +87,7 @@ int				iroundf(float v);
 float			mod_deg(float deg);
 t_frange		make_fov_range(float rot, float fov);
 int				is_angle_between(float a, float start, float end); // TODO: check usage
+t_cell			*get_cell(t_env *e, t_ip2d cpos);
 
 float			sin_deg(float deg);
 float			cos_deg(float deg);
@@ -90,5 +96,7 @@ float			p2d_dist(t_p2d a, t_p2d b); // TODO: check usage
 float			p2d_angle(t_p2d a, t_p2d b); // TODO: check usage
 
 void			process_collision(t_env *e, t_p2d offset);
+void			process_logic(t_env *e, ssize_t ticks);
+
 
 #endif

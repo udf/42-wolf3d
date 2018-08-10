@@ -6,13 +6,14 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 16:58:10 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 21:34:16 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 11:08:25 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WORLD_H
 # define WORLD_H
 
+# include "wolf3d.h"
 # include "texture_sys.h"
 
 /*
@@ -67,8 +68,7 @@ typedef struct			s_cell_key
 	short				respawn_ticks;
 	char				held;
 	char				colour;
-	float				x;
-	float				y;
+	t_p2d				pos;
 }						t_cell_key;
 
 /*

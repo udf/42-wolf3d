@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 22:02:31 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 12:42:39 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	die(t_env *e, int code, char *pre_msg)
 	if (code)
 	{
 		ft_putstr_fd(pre_msg, 2);
-		ft_putendl_fd(SDL_GetError(), 2);
+		if (code != 42)
+			ft_putendl_fd(SDL_GetError(), 2);
 	}
 	vec_free(&e->world);
 	texture_sys_free(NULL);
@@ -25,7 +26,7 @@ void	die(t_env *e, int code, char *pre_msg)
 	SDL_DestroyRenderer(e->ren);
 	SDL_DestroyWindow(e->win);
 	SDL_Quit();
-	exit(code);
+	exit(code == 42 ? 0 : code);
 }
 
 void	draw_background(t_env *e)
@@ -105,15 +106,18 @@ void	loop(t_env *e)
 {
 	SDL_Event	event;
 	Uint32		last_ticks;
+	ssize_t		elapsed_ticks;
 
 	last_ticks = SDL_GetTicks();
-	while (1)
+	while (e->me.exit == 0)
 	{
 		while (SDL_PollEvent(&event))
 			if (process_event(&event))
 				return ;
 		draw(e);
-		process_input(e, (float)(SDL_GetTicks() - last_ticks) / 1000.0f);
+		elapsed_ticks = SDL_GetTicks() - last_ticks;
+		process_logic(e, elapsed_ticks);
+		process_input(e, (float)(elapsed_ticks) / 1000.0f);
 		last_ticks = SDL_GetTicks();
 	}
 }
@@ -145,6 +149,6 @@ int	main(int ac, char **av)
 	if (!e.buf.tex)
 		die(&e, 1, "Failed to create texture: ");
 	loop(&e);
-	die(&e, 0, "Thanks for playing");
+	die(&e, e.me.exit ? 42 : 0, "Thanks for playing!\n");
 	return 0;
 }

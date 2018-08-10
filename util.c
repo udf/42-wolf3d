@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 13:52:13 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/07 16:22:16 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 09:35:07 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,14 @@ Uint32	*buf_pixel(t_buf *buf, int x, int y)
 	const int pitch = buf->pitch / (int)sizeof(Uint32);
 
 	return (&buf->pixels[x + pitch * y]);
+}
+
+t_cell	*get_cell(t_env *e, t_ip2d cpos)
+{
+	if (cpos.x < 0 || cpos.x >= e->world_w)
+		return (NULL);
+	if (cpos.y < 0 || cpos.y >= e->world_h)
+		return (NULL);
+	return (vec_get_2d(&e->world, (size_t)cpos.x, (size_t)cpos.y,
+		(size_t)e->world_w));
 }
