@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 09:42:00 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 14:02:39 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 14:12:30 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ static void	try_pick_up(t_player *me, t_cell *cell)
 	(*slot)->held = 1;
 }
 
-static void	drop_key(t_player *me, t_cell_key **slot)
+static void	drop_key(t_env *e, t_cell_key **slot)
 {
 	if (!*slot)
 		return ;
 	(*slot)->held = 0;
-	(*slot)->pos.x = me->pos.x + cos_deg(me->rot);
-	(*slot)->pos.y = me->pos.y + sin_deg(me->rot);
+	(*slot)->pos = e->me.pos;
+	(*slot)->respawn_ticks = 0;
+	process_collision(e, &(*slot)->pos,
+		(t_p2d){cos_deg(e->me.rot), sin_deg(e->me.rot)});
 	*slot = NULL;
 }
 
@@ -87,7 +89,7 @@ void		process_logic(t_env *e, ssize_t ticks)
 		i++;
 	}
 	if (kstate[SDL_SCANCODE_Z])
-		drop_key(&e->me, &e->me.key1);
+		drop_key(e, &e->me.key1);
 	if (kstate[SDL_SCANCODE_X])
-		drop_key(&e->me, &e->me.key2);
+		drop_key(e, &e->me.key2);
 }

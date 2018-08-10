@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 12:42:39 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 14:06:28 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,22 @@ int		process_event(SDL_Event *ev)
 void	process_input(t_env *e, float secs)
 {
 	const Uint8	*state = SDL_GetKeyboardState(NULL);
-	float		direction;
+	float		dir;
 
 	if (state[SDL_SCANCODE_UP] || state[SDL_SCANCODE_DOWN])
 	{
-		direction = 2.0f;
+		dir = 2.0f * secs;
 		if (state[SDL_SCANCODE_DOWN])
-			direction *= -1.0f;
-		process_collision(e,
-			(t_p2d){cos_deg(e->me.rot) * secs * direction,
-			sin_deg(e->me.rot) * secs * direction});
+			dir *= -1.0f;
+		process_collision(e, &e->me.pos,
+			(t_p2d){cos_deg(e->me.rot) * dir, sin_deg(e->me.rot) * dir});
 	}
 	if (state[SDL_SCANCODE_LEFT] || state[SDL_SCANCODE_RIGHT])
 	{
-		direction = 1.0f;
+		dir = 1.0f;
 		if (state[SDL_SCANCODE_LEFT])
-			direction *= -1.0f;
-		e->me.rot += secs * direction * 90.f;
+			dir *= -1.0f;
+		e->me.rot += secs * dir * 90.f;
 		e->me.rot = mod_deg(e->me.rot);
 	}
 }

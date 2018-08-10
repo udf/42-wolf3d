@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 22:22:40 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 11:13:01 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 14:07:01 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,23 @@ static int	try_operate_door(t_env *e, t_p2d pos)
 	return 1;
 }
 
-void		process_collision(t_env *e, t_p2d offset)
+void		process_collision(t_env *e, t_p2d *target, t_p2d offset)
 {
-	const t_p2d		new_pos = {e->me.pos.x + offset.x, e->me.pos.y + offset.y};
-	const t_p2d		old_pos = e->me.pos;
+	const t_p2d		new_pos = {target->x + offset.x, target->y + offset.y};
+	const t_p2d		old_pos = *target;
 
-	e->me.pos = new_pos;
+	*target = new_pos;
 	if (is_in_solid_cell(e, old_pos) || !is_in_solid_cell(e, new_pos))
 		return ;
 	if (try_operate_door(e, new_pos))
 		return ;
-	e->me.pos.x = new_pos.x;
-	e->me.pos.y = old_pos.y;
-	if (!is_in_solid_cell(e, e->me.pos))
+	target->x = new_pos.x;
+	target->y = old_pos.y;
+	if (!is_in_solid_cell(e, *target))
 		return ;
-	e->me.pos.x = old_pos.x;
-	e->me.pos.y = new_pos.y;
-	if (!is_in_solid_cell(e, e->me.pos))
+	target->x = old_pos.x;
+	target->y = new_pos.y;
+	if (!is_in_solid_cell(e, *target))
 		return ;
-	e->me.pos = old_pos;
+	*target = old_pos;
 }

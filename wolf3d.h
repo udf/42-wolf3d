@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 12:34:27 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 14:06:52 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ float			tan_deg(float deg);
 float			p2d_dist(t_p2d a, t_p2d b); // TODO: check usage
 float			p2d_angle(t_p2d a, t_p2d b); // TODO: check usage
 
-void			process_collision(t_env *e, t_p2d offset);
+void			process_collision(t_env *e, t_p2d *target, t_p2d offset);
 void			process_logic(t_env *e, ssize_t ticks);
 
 
