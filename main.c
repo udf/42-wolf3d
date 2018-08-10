@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 14:57:50 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 15:22:09 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,6 @@ void	draw(t_env *e)
 	SDL_RenderPresent(e->ren);
 }
 
-int		process_event(SDL_Event *ev)
-{
-	if (ev->type == SDL_KEYUP)
-	{
-		if (ev->key.keysym.sym == SDLK_ESCAPE)
-			return (1);
-	}
-	return (0);
-}
-
 void	process_input(t_env *e, float secs)
 {
 	const Uint8	*state = SDL_GetKeyboardState(NULL);
@@ -112,7 +102,8 @@ void	loop(t_env *e)
 	while (e->me.exit == 0)
 	{
 		while (SDL_PollEvent(&event))
-			if (process_event(&event))
+			if (event.type == SDL_QUIT || (event.type == SDL_KEYUP
+				&& event.key.keysym.sym == SDLK_ESCAPE))
 				return ;
 		draw(e);
 		elapsed_ticks = SDL_GetTicks() - last_ticks;
