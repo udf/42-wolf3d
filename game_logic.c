@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 09:42:00 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 14:12:30 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 14:24:26 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	drop_key(t_env *e, t_cell_key **slot)
 	(*slot)->pos = e->me.pos;
 	(*slot)->respawn_ticks = 0;
 	process_collision(e, &(*slot)->pos,
-		(t_p2d){cos_deg(e->me.rot), sin_deg(e->me.rot)});
+		(t_p2d){cos_deg(e->me.rot) * 0.75f, sin_deg(e->me.rot) * 0.75f});
 	*slot = NULL;
 }
 
