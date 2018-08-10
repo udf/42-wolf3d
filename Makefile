@@ -6,12 +6,12 @@
 #    By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/25 07:39:20 by mhoosen           #+#    #+#              #
-#    Updated: 2018/08/10 09:45:45 by mhoosen          ###   ########.fr        #
+#    Updated: 2018/08/10 15:11:42 by mhoosen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 HEADERS=wolf3d.h world.h texture_sys.h
-SRCS=main.c collision.c game_logic.c render.c map.c map_token.c \
+SRCS=main.c collision.c game_logic.c render.c ui.c map.c map_token.c \
 util.c util_math.c texture_sys.c
 NAME=wolf3d
 CFLAGS=-Wall -Wextra -Werror -Wconversion -g

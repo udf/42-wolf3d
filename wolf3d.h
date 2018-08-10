@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 14:06:52 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 15:10:48 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct		s_env
 {
 	SDL_Window		*win;
 	SDL_Renderer	*ren;
+	t_texture		*UI_tex;
 	t_buf			buf;
 	int				w;
 	int				h;
@@ -80,6 +81,8 @@ void			process_key_token(t_cell *cell, char c, t_ip2d pos);
 void			process_prop_token(t_cell *cell, char c);
 
 void			render(t_env *e);
+int				ui_init(t_env *e);
+void			ui_draw(t_env *e);
 
 size_t			seek_token(char **str);
 Uint32			*buf_pixel(t_buf *buf, int x, int y);

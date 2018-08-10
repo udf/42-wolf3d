@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 16:34:45 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 12:25:36 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 15:13:11 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,4 @@ void		render(t_env *e)
 	img_put_line(e, a, b, 0xFF000000);
 	b = (t_p2d){a.x + cos_deg(fov_r.e) * 20, a.y + sin_deg(fov_r.e) * 20};
 	img_put_line(e, a, b, 0xFF000000);
-
-	if (e->me.key1)
-		copy_tex(&e->buf, e->me.key1->tex, 10, 10, 0.0f);
-	if (e->me.key2)
-		copy_tex(&e->buf, e->me.key2->tex, 42, 10, 0.0f);
 }

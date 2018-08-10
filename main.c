@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:27:49 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 14:06:28 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 14:57:50 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	draw(t_env *e)
 	SDL_RenderClear(e->ren);
 	draw_background(e);
 	render(e);
+	ui_draw(e);
 	SDL_UnlockTexture(e->buf.tex);
 	SDL_RenderCopy(e->ren, e->buf.tex, NULL, NULL);
 	SDL_RenderPresent(e->ren);
@@ -128,7 +129,7 @@ int	main(int ac, char **av)
 	if (ac <= 1)
 		die(&e, 1, "No map file provided");
 	vec_init(&e.world, sizeof(t_cell), 0);
-	if (load_map(&e, av[1]))
+	if (load_map(&e, av[1]) || ui_init(&e))
 		die(&e, 1, NULL);
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		die(&e, 1, "Failed to initialize SDL: ");
