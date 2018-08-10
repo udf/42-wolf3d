@@ -6,16 +6,16 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 09:42:00 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 14:24:26 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 15:09:48 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-static void	do_animations(t_cell *cell, t_cell *p_cell,
-	ssize_t ticks, float secs)
+static void	do_animations(t_cell *cell, t_cell *p_cell, ssize_t ticks)
 {
-	float tmp;
+	float		tmp;
+	const float	secs = (float)ticks / 1000.0f;
 
 	if (cell->type == DOOR)
 	{
@@ -74,7 +74,6 @@ static void	drop_key(t_env *e, t_cell_key **slot)
 void		process_logic(t_env *e, ssize_t ticks)
 {
 	const Uint8	*kstate = SDL_GetKeyboardState(NULL);
-	const float	secs = (float)ticks / 1000.0f;
 	size_t		i;
 	t_cell		*p_cell;
 	t_cell		*cell;
@@ -85,7 +84,7 @@ void		process_logic(t_env *e, ssize_t ticks)
 	{
 		cell = vec_get(&e->world, i);
 		try_pick_up(&e->me, cell);
-		do_animations(cell, p_cell, ticks, secs);
+		do_animations(cell, p_cell, ticks);
 		i++;
 	}
 	if (kstate[SDL_SCANCODE_Z])
