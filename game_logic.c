@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 09:42:00 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 13:48:38 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/10 14:02:39 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,19 @@ static void	try_pick_up(t_player *me, t_cell *cell)
 	(*slot)->held = 1;
 }
 
+static void	drop_key(t_player *me, t_cell_key **slot)
+{
+	if (!*slot)
+		return ;
+	(*slot)->held = 0;
+	(*slot)->pos.x = me->pos.x + cos_deg(me->rot);
+	(*slot)->pos.y = me->pos.y + sin_deg(me->rot);
+	*slot = NULL;
+}
+
 void		process_logic(t_env *e, ssize_t ticks)
 {
+	const Uint8	*kstate = SDL_GetKeyboardState(NULL);
 	const float	secs = (float)ticks / 1000.0f;
 	size_t		i;
 	t_cell		*p_cell;
@@ -75,4 +86,8 @@ void		process_logic(t_env *e, ssize_t ticks)
 		do_animations(cell, p_cell, ticks, secs);
 		i++;
 	}
+	if (kstate[SDL_SCANCODE_Z])
+		drop_key(&e->me, &e->me.key1);
+	if (kstate[SDL_SCANCODE_X])
+		drop_key(&e->me, &e->me.key2);
 }
