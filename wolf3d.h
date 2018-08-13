@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/10 15:10:48 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/13 20:09:43 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ typedef struct		s_ip2d
 }					t_ip2d;
 
 # include "world.h"
+
+typedef struct		s_hit
+{
+	t_texture		*tex;
+	t_p2d			pos;
+	float			perc;
+	char			valid;
+}					t_hit;
 
 typedef struct		s_player
 {
