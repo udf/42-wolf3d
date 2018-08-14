@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 16:34:45 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 17:58:34 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/14 17:58:58 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ t_hit			do_cast(t_env *e, float theta, t_p2d p, t_p2d p_delta)
 	inter = compute_inter(theta, dir, &p, p_delta);
 	while (safety < 1000)
 	{
-		while ((step.y > 0 && inter.y < p.y) || (step.y < 0 && inter.y > p.y))
+		while ((step.y > 0 && inter.y <= p.y) || (step.y < 0 && inter.y >= p.y))
 		{
 			if ((hit = hit_test(e, dir, (t_p2d){p.x, inter.y}, 1)).valid)
 				return (hit);
 			p.x += dir.x;
 			inter.y += step.y;
 		}
-		while ((step.x > 0 && inter.x < p.x) || (step.x < 0 && inter.x > p.x))
+		while ((step.x > 0 && inter.x <= p.x) || (step.x < 0 && inter.x >= p.x))
 		{
 			if ((hit = hit_test(e, dir, (t_p2d){inter.x, p.y}, 0)).valid)
 				return (hit);
