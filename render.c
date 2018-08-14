@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 16:34:45 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/13 21:54:55 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/14 14:17:23 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_hit	hit_test(t_env *e, t_p2d dir, t_p2d pos, char is_vert)
 	t_cell	*cell;
 	t_hit	hit;
 
-	hit = (t_hit){NULL, {-1, -1}, fmodf(is_vert ? pos.y : pos.x, 1.0f), 1};
+	hit = (t_hit){NULL, {-1, -1}, fmodf(is_vert ? pos.y : pos.x, 1.0f), 0, 1};
 	hit.pos = pos;
 	pos.x -= (is_vert && dir.x < 0);
 	pos.y -= (!is_vert && dir.y < 0);
@@ -48,8 +48,10 @@ static t_hit	hit_test(t_env *e, t_p2d dir, t_p2d pos, char is_vert)
 			hit.tex = (dir.y > 0 ? cell->wall.tex_n : cell->wall.tex_s);
 	}
 	else if (cell && cell->type == DOOR)
+	{
 		hit.tex = cell->door.tex;
-		// TODO: door height shift
+		hit.v_shift = (float)cell->door.anim_state / 100.0f;
+	}
 	else if (cell)
 		hit.valid = 0;
 	return (hit);
@@ -92,6 +94,8 @@ t_hit			do_cast(t_env *e, float theta, t_p2d p, t_p2d p_delta)
 	t_hit		hit;
 	int safety = 0;
 
+	SDL_SetError("params: %f, (%f, %f), (%f, %f)\n",
+		theta, p.x, p.y, p_delta.x, p_delta.y);
 	inter = compute_inter(theta, dir, &p, p_delta);
 	while (safety < 1000)
 	{
@@ -111,31 +115,30 @@ t_hit			do_cast(t_env *e, float theta, t_p2d p, t_p2d p_delta)
 		}
 		safety++;
 	}
+	// TODO: try to hit this
 	printf("more than 1000 ray cast steps, wtf?\n");
-	printf("params: %f, (%f, %f), (%f, %f)\n", theta, p.x, p.y, p_delta.x, p_delta.y);
+	printf(SDL_GetError());
 	exit(69);
-	return (t_hit){NULL, {0, 0}, 0, 0};
+	return (t_hit){NULL, {0, 0}, 0, 0, 0};
 }
 
 
 static void		draw_column(t_env *e, int screen_x, t_hit hit, float dist)
 {
-	float	y_beg;
-	float	y_end;
+	const float y_len = (float)e->h / dist;
+	t_frange	yr;
 	float	y;
 	int		t_x;
 	int		t_y;
 
-	y_beg = ((float)e->h * (dist - 1)) / (dist * 2);
-	y_end = ((float)e->h * (dist + 1)) / (dist * 2);
+	yr.s = ((float)e->h - y_len) / 2.0f - y_len * hit.v_shift;
+	yr.e = ((float)e->h + y_len) / 2.0f - y_len * hit.v_shift;
 	t_x = iroundf(ft_fmapf(hit.perc, (t_frange){0, 1},
 		(t_frange){(float)0, (float)(hit.tex->h - 1)}));
-	y = MAX(y_beg, 0);
-	while (y <= MIN(y_end, (float)e->h) - 1)
+	y = MAX(yr.s, 0);
+	while (y <= MIN(yr.e, (float)e->h) - 1)
 	{
-		t_y = iroundf(ft_fmapf((float)y,
-			(t_frange){y_beg, y_end},
-			(t_frange){0, (float)(hit.tex->h - 1)}));
+		t_y = iroundf(ft_fmapf(y, yr, (t_frange){1, (float)hit.tex->h})) - 1;
 		*buf_pixel(&e->buf, screen_x, iroundf(y)) =
 			*((Uint32 *)&hit.tex->data[t_x + t_y * hit.tex->h]);
 		y++;
@@ -144,8 +147,7 @@ static void		draw_column(t_env *e, int screen_x, t_hit hit, float dist)
 
 static float	ray_dist(float a, t_p2d o, t_p2d h)
 {
-	return (fabsf((o.x - h.x) * cos_deg(a)
-			+ (o.y - h.y) * sin_deg(a)));
+	return (fabsf((o.x - h.x) * cos_deg(a) + (o.y - h.y) * sin_deg(a)));
 }
 
 void			draw_cast(t_env *e, int screen_x, float theta, t_p2d ray_p)
@@ -156,8 +158,8 @@ void			draw_cast(t_env *e, int screen_x, float theta, t_p2d ray_p)
 
 	p_d = (t_p2d){modff(ray_p.x, &p_t.x), modff(ray_p.y, &p_t.y)};
 	hit = do_cast(e, theta, p_t, p_d);
-	if (!hit.valid)
-		printf("invalid hit, WTF?\n");
+	if (!hit.valid || !hit.tex)
+		return ;
 	// TODO: check for transparency and recursive call
 	draw_column(e, screen_x, hit, ray_dist(theta, ray_p, hit.pos));
 	// TODO: draw sprites (z-buffer pls)

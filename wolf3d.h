@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/13 20:09:43 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/14 13:27:05 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct		s_hit
 	t_texture		*tex;
 	t_p2d			pos;
 	float			perc;
+	float			v_shift;
 	char			valid;
 }					t_hit;
 
