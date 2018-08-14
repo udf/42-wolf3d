@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 16:34:45 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 14:17:23 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/14 14:24:32 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ static void		draw_column(t_env *e, int screen_x, t_hit hit, float dist)
 	y = MAX(yr.s, 0);
 	while (y <= MIN(yr.e, (float)e->h) - 1)
 	{
-		t_y = iroundf(ft_fmapf(y, yr, (t_frange){1, (float)hit.tex->h})) - 1;
+		t_y = iroundf(ft_fmapf(y, yr, (t_frange){1, (float)hit.tex->h}) - 1);
 		*buf_pixel(&e->buf, screen_x, iroundf(y)) =
 			*((Uint32 *)&hit.tex->data[t_x + t_y * hit.tex->h]);
 		y++;
