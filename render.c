@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 16:34:45 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 14:24:32 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/14 15:07:14 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,13 @@ void			draw_cast(t_env *e, int screen_x, float theta, t_p2d ray_p)
 	hit = do_cast(e, theta, p_t, p_d);
 	if (!hit.valid || !hit.tex)
 		return ;
-	// TODO: check for transparency and recursive call
-	draw_column(e, screen_x, hit, ray_dist(theta, ray_p, hit.pos));
+	if (hit.v_shift > 0.0f) // TODO: check for texture transparency
+	{
+		hit.pos.x += cos_deg(theta) * 0.0001f;
+		hit.pos.y += sin_deg(theta) * 0.0001f;
+		draw_cast(e, screen_x, theta, hit.pos);
+	}
+	draw_column(e, screen_x, hit, ray_dist(theta, e->me.pos, hit.pos));
 	// TODO: draw sprites (z-buffer pls)
 }
 
