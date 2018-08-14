@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 16:34:45 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 17:58:58 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/14 18:02:45 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_hit	hit_test(t_env *e, t_p2d dir, t_p2d pos, char is_vert)
 	else if (cell && cell->type == DOOR)
 	{
 		hit.tex = cell->door.tex;
-		hit.v_shift = (float)cell->door.anim_state / 100.0f;
+		hit.v_shift = (float)cell->door.anim_state / 101.0f;
 	}
 	else if (cell)
 		hit.valid = 0;
