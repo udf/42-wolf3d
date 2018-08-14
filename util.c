@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 13:52:13 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/13 22:03:37 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/14 13:15:48 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int		iroundf(float v)
 
 float	mod_deg(float deg)
 {
-	return (fmodf(deg + 360.0f, 360.0f));
+	const float n = 360.0f;
+	return (fmodf(fmodf(deg, n) + n, n));
 }
 
 t_frange	make_fov_range(float rot, float fov)
