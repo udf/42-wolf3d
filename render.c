@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 16:34:45 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 17:58:01 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/14 17:58:34 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_hit			do_cast(t_env *e, float theta, t_p2d p, t_p2d p_delta)
 	t_hit		hit;
 	int safety = 0;
 
-	SDL_SetError("params: %f, (%f, %f), (%f, %f)\n",
+	SDL_SetError("params: %f, {%f, %f}, {%f, %f}\n",
 		theta, p.x, p.y, p_delta.x, p_delta.y);
 	inter = compute_inter(theta, dir, &p, p_delta);
 	while (safety < 1000)
