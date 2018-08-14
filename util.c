@@ -5,47 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/04 13:52:13 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 13:15:48 by mhoosen          ###   ########.fr       */
+/*   Created: 2018/08/14 22:10:04 by mhoosen           #+#    #+#             */
+/*   Updated: 2018/08/14 23:44:55 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
-
-size_t	seek_token(char **str)
-{
-	char	*iter;
-	size_t		tok_len;
-
-	iter = *str;
-	while (iter && *iter && *iter == ' ')
-		iter++;
-	tok_len = 0;
-	*str = iter;
-	while (iter && iter[tok_len] && iter[tok_len] != ' ')
-		tok_len++;
-	return (tok_len);
-}
-
-int		iroundf(float v)
-{
-	return ((int)roundf(v));
-}
+#include "util.h"
 
 float	mod_deg(float deg)
 {
 	const float n = 360.0f;
 	return (fmodf(fmodf(deg, n) + n, n));
-}
-
-t_frange	make_fov_range(float rot, float fov)
-{
-	t_frange r;
-
-	r = (t_frange){mod_deg(rot - fov / 2), mod_deg(rot + fov / 2)};
-	if (r.e < r.s)
-		r.e += 360.0f;
-	return (r);
 }
 
 int		is_angle_between(float a, float start, float end)
@@ -54,19 +24,11 @@ int		is_angle_between(float a, float start, float end)
 	return (a >= start && a <= end);
 }
 
-Uint32	*buf_pixel(t_buf *buf, int x, int y)
+void	post_exit_event(void)
 {
-	const int pitch = buf->pitch / (int)sizeof(Uint32);
+	SDL_Event event;
 
-	return (&buf->pixels[x + pitch * y]);
-}
-
-t_cell	*get_cell(t_env *e, t_ip2d cpos)
-{
-	if (cpos.x < 0 || cpos.x >= e->world_w)
-		return (NULL);
-	if (cpos.y < 0 || cpos.y >= e->world_h)
-		return (NULL);
-	return (vec_get_2d(&e->world, (size_t)cpos.x, (size_t)cpos.y,
-		(size_t)e->world_w));
+	event.type = SDL_QUIT;
+	event.quit.timestamp = 0;
+	SDL_PushEvent(&event);
 }

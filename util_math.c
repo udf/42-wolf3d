@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/04 02:00:32 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/05 18:43:09 by mhoosen          ###   ########.fr       */
+/*   Created: 2018/08/14 21:45:43 by mhoosen           #+#    #+#             */
+/*   Updated: 2018/08/14 22:13:05 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
+#include "util.h"
 
 float	sin_deg(float deg)
 {

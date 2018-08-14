@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf3d.h                                           :+:      :+:    :+:   */
+/*   controller.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 22:13:21 by mhoosen          ###   ########.fr       */
+/*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
+/*   Updated: 2018/08/14 23:31:35 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WOLF3D_H
-# define WOLF3D_H
-
-# include "SDL.h"
-
-# include "libft.h"
-
-# include <stdio.h> //TODO: remove
+#ifndef CONTROLLER_H
+# define CONTROLLER_H
 
 # include "model.h"
-# include "view.h"
-# include "controller.h"
 
-# include "texture_sys.h"
+int		controller_process_events(float elapsed_secs);
 
 #endif
