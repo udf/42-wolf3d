@@ -6,19 +6,21 @@
 #    By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/25 07:39:20 by mhoosen           #+#    #+#              #
-#    Updated: 2018/08/15 00:27:03 by mhoosen          ###   ########.fr        #
+#    Updated: 2018/08/15 08:40:36 by mhoosen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-HEADERS=wolf3d.h texture_sys.h model.h view.h controller.h
-SRCS=main.c texture_sys.c util.c util_math.c \
+HEADER_FILES=wolf3d.h texture_sys.h model.h view.h controller.h
+SRC_FILES=main.c texture_sys.c util.c util_math.c \
 model.c model_collision.c model_map.c model_map_token.c model_player.c \
 model_update.c \
 view.c view_raycast.c view_render.c view_render_ui.c view_util.c \
 controller.c
+HEADERS=$(HEADER_FILES:%=includes/%)
+SRCS=$(SRC_FILES:%=srcs/%)
 NAME=wolf3d
 CFLAGS=-Wall -Wextra -Werror -Wconversion -g
-LIBS=-I libft/includes -L libft/ -lft -lm
+LIBS=-I libft/includes -L libft/ -lft -I ./includes -lm
 SDL2_CONFIG=SDL2/bin/sdl2-config
 SDL_SRCS=SDL2-2.0.8
 
