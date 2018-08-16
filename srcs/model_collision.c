@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 22:51:51 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:25:50 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 21:18:57 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,24 @@ static int	try_operate_door(t_p2d pos)
 	return (1);
 }
 
-void		model_do_collision(t_p2d *target, t_p2d offset)
+int			model_do_collision(t_p2d *target, t_p2d offset)
 {
 	const t_p2d		new_pos = {target->x + offset.x, target->y + offset.y};
 	const t_p2d		old_pos = *target;
 
 	*target = new_pos;
 	if (is_in_solid_cell(old_pos) || !is_in_solid_cell(new_pos))
-		return ;
+		return (0);
 	if (try_operate_door(new_pos))
-		return ;
+		return (0);
 	target->x = new_pos.x;
 	target->y = old_pos.y;
 	if (!is_in_solid_cell(*target))
-		return ;
+		return (1);
 	target->x = old_pos.x;
 	target->y = new_pos.y;
 	if (!is_in_solid_cell(*target))
-		return ;
+		return (1);
 	*target = old_pos;
+	return (1);
 }
