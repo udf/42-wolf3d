@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 19:41:24 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 20:48:18 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 22:24:51 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@ static void		draw_column(t_view_data *v, int screen_x, t_hit hit, float dist)
 		v->z_column[iroundf(y)] = dist;
 		y++;
 	}
-}
-
-static float	ray_dist(float a, t_p2d o, t_p2d h)
-{
-	return (fabsf((o.x - h.x) * cos_deg(a) + (o.y - h.y) * sin_deg(a)));
 }
 
 static void		draw_cast(t_view_data *v, const t_model_data *m, int x, t_ray r)

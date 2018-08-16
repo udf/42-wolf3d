@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 21:04:09 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 22:25:15 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ void				view_sprites_draw_column(t_view_data *v, int x, t_ray ray);
 int					iroundf(float v);
 t_frange			make_fov_range(float rot, float fov);
 Uint32				*buf_pixel(t_buf *buf, int x, int y);
+float				ray_dist(float a, t_p2d o, t_p2d h);
 
 #endif

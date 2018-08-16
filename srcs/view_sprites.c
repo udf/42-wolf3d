@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 14:16:17 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 21:06:24 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 22:25:49 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	view_sprites_compute(t_view_data *v, const t_model_data *m)
 		}
 		else if (thing->type == PROP)
 			cache.tex = thing->prop.tex;
-		cache.dist = p2d_dist(m->me.pos, thing->prop.pos);
+		cache.dist = ray_dist(m->me.rot, m->me.pos, thing->prop.pos);
 		cache.ar = make_fov_range(p2d_angle(m->me.pos, thing->prop.pos),
 			v->fov / cache.dist * cache.scale);
 		vec_append(&v->sprite_cache, &cache);
