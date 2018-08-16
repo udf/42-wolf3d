@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 21:36:33 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:29:50 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 22:11:00 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,27 @@ void	model_player_rotate(float amount)
 
 void	model_player_drop_key(int num)
 {
+	t_key			*key;
 	t_key			**slot;
 	t_model_data	*m;
+	int				i;
 
 	m = model_get_real();
-	slot = NULL;
-	slot = (num == 1) ? &m->me.key1 : slot;
+	slot = (num == 1) ? &m->me.key1 : NULL;
 	slot = (num == 2) ? &m->me.key2 : slot;
 	if (!slot || !*slot)
 		return ;
-	(*slot)->held = 0;
-	(*slot)->pos = m->me.pos;
-	(*slot)->respawn_ticks = 0;
-	model_do_collision(&(*slot)->pos,
-		(t_p2d){cos_deg(m->me.rot) * 0.75f, sin_deg(m->me.rot) * 0.75f});
+	key = *slot;
 	*slot = NULL;
+	key->held = 0;
+	key->pos = m->me.pos;
+	key->respawn_ticks = 0;
+	i = 0;
+	while (i < 15)
+	{
+		if (model_do_collision(&key->pos,
+			(t_p2d){cos_deg(m->me.rot) * 0.1f, sin_deg(m->me.rot) * 0.1f}))
+			break ;
+		i++;
+	}
 }
