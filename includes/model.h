@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 21:11:03 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 22:18:02 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ void				model_player_move(float amount);
 void				model_player_rotate(float amount);
 void				model_player_drop_key(int num);
 
-int					model_do_collision(t_p2d *target, t_p2d offset);
+int					model_do_collision(t_p2d *target, t_p2d offset,
+																char is_player);
 const t_cell		*model_get_cell(t_p2d pos);
 
 /*
