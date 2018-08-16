@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 22:16:48 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 22:20:04 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:20:16 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	copy_tex(t_buf *buf, t_texture *tex, int x_start, int y_start)
 
 void	view_render_ui(t_view_data *v, const t_model_data *m)
 {
-	copy_tex(&v->buf, v->UI_tex, 10, 10);
+	copy_tex(&v->buf, v->UI_Tex, 10, 10);
 	if (m->me.key1)
 		copy_tex(&v->buf, m->me.key1->tex, 12, 12);
 	if (m->me.key2)
