@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 23:50:30 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:13:54 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:17:55 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ t_hit			view_raycast(float theta, t_p2d p, t_p2d p_delta)
 	inter = compute_inter(theta, dir, &p, p_delta);
 	while (safety < 1000)
 	{
-		while ((step.y >= 0 && inter.y <= p.y) || (step.y <= 0 && inter.y >= p.y))
+		while (VAL_CAN_MOVE(inter.y, step.y, p.y))
 		{
 			if ((hit = hit_test(dir, (t_p2d){p.x, inter.y}, 1)).valid)
 				return (hit);
 			p.x += dir.x;
 			inter.y += step.y;
 		}
-		while ((step.x >= 0 && inter.x <= p.x) || (step.x <= 0 && inter.x >= p.x))
+		while (VAL_CAN_MOVE(inter.x, step.x, p.x))
 		{
 			if ((hit = hit_test(dir, (t_p2d){inter.x, p.y}, 0)).valid)
 				return (hit);

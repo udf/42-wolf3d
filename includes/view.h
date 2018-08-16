@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/15 00:02:50 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:18:09 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "SDL.h"
 # include "util.h"
 # include "model.h"
+
+# define VAL_CAN_MOVE(v, s, a) ((s >= 0 && v <= a) || (s <= 0 && v >= a))
 
 typedef struct		s_hit
 {
