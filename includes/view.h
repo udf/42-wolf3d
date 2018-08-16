@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:18:09 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:19:18 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int					view_init(int w, int h, float fov);
 void				view_free(void);
 void				view_update(void);
 
-// TODO: check if protos can go in .c
 /*
 ** Private
 */
