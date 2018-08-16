@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:08:43 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/15 00:15:47 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:35:47 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ static int		process_token(t_model_data *m, const char *str,
 	int		error;
 	t_cell	cell;
 
-	error = 0;
+	error = (str[0] == '_' && str[1] != ' ');
 	cell.type = EMPTY;
-	if (str[0] == '_' && str[1] != ' ')
-		error = 1;
 	if (str[0] == 'W')
 		error = process_wall_token(&cell, m->world.walls, str[1]);
 	if (str[0] == 'D')
@@ -35,8 +33,10 @@ static int		process_token(t_model_data *m, const char *str,
 	if (str[0] == '@')
 		error = process_player_token(&m->me, str[1], pos);
 	if (error)
+	{
 		return (SDL_SetError("%s\nUnknown token \"%.*s\" on line %zd;token %zd",
 			SDL_GetError(), (int)len, str, pos.y + 1, pos.x + 1));
+	}
 	vec_append(&m->world.cells, &cell);
 	return (0);
 }
@@ -44,7 +44,7 @@ static int		process_token(t_model_data *m, const char *str,
 static size_t	seek_token(char **str)
 {
 	char	*iter;
-	size_t		tok_len;
+	size_t	tok_len;
 
 	iter = *str;
 	while (iter && *iter && *iter == ' ')
@@ -72,18 +72,19 @@ static int		process_line(t_model_data *m, char *line, ssize_t line_n)
 	if (!m->world.w)
 		m->world.w = tok_n;
 	if (tok_n != m->world.w)
-		return (SDL_SetError(
-			"Incorrect number of tokens on line %zd (expected %zd)", tok_n,
-			m->world.w));
+	{
+		return (SDL_SetError("Line %zd: token miscount (expected %zd, got %zd)",
+			line_n, m->world.w, tok_n));
+	}
 	return (0);
 }
 
 int				model_map_load(const char *map_path)
 {
-	int		fd;
-	char	*line;
-	ssize_t	line_n;
-	int		err;
+	int				fd;
+	char			*line;
+	ssize_t			line_n;
+	int				err;
 	t_model_data	*m;
 
 	if ((fd = open(map_path, O_RDONLY)) < 0)

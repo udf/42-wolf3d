@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 23:06:43 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/15 00:19:49 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:26:03 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static void	update_doors(t_model_data *m, ssize_t ticks, float secs)
 {
 	const t_cell	*p_c = model_get_cell(m->me.pos);
 	const t_door	*p_door = (p_c && p_c->type == DOOR) ? p_c->door : NULL;
-	size_t		i;
-	t_door		*door;
-	float		tmp;
+	size_t			i;
+	t_door			*door;
+	float			tmp;
 
 	i = 0;
 	while (i < m->world.doors.length)
@@ -85,6 +85,7 @@ static void	update_keys(t_model_data *m, ssize_t ticks)
 void		model_update(ssize_t elapsed_ticks, float elapsed_secs)
 {
 	t_model_data	*m;
+
 	m = model_get_real();
 	update_doors(m, elapsed_ticks, elapsed_secs);
 	update_keys(m, elapsed_ticks);

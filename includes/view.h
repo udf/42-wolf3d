@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:19:51 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:42:27 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct		s_view_data
 	float			fov;
 	SDL_Window		*win;
 	SDL_Renderer	*ren;
-	t_texture		*UI_Tex;
+	t_texture		*ui_tex;
 	t_buf			buf;
 }					t_view_data;
 

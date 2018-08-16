@@ -6,13 +6,13 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 19:41:24 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/15 00:08:36 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:23:37 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "view.h"
 
-void	view_render_bk(t_view_data *v)
+void			view_render_bk(t_view_data *v)
 {
 	int x;
 	int y;
@@ -42,11 +42,11 @@ void	view_render_bk(t_view_data *v)
 
 static void		draw_column(t_view_data *v, int screen_x, t_hit hit, float dist)
 {
-	const float y_len = (float)v->h / dist;
+	const float	y_len = (float)v->h / dist;
 	t_frange	yr;
-	float	y;
-	int		t_x;
-	int		t_y;
+	float		y;
+	int			t_x;
+	int			t_y;
 
 	yr.s = ((float)v->h - y_len) / 2.0f - y_len * hit.v_shift;
 	yr.e = ((float)v->h + y_len) / 2.0f - y_len * hit.v_shift;
@@ -87,7 +87,7 @@ static void		draw_cast(t_view_data *v, const t_player *me, int x, t_ray r)
 	// TODO: draw sprites (z-buffer pls)
 }
 
-void	view_render_main(t_view_data *v, const t_model_data *m)
+void			view_render_main(t_view_data *v, const t_model_data *m)
 {
 	const t_frange	fov_r = make_fov_range(m->me.rot, v->fov);
 	int				x;

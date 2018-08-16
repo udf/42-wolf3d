@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 21:36:33 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/15 00:24:08 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:29:50 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	model_player_rotate(float amount)
 
 void	model_player_drop_key(int num)
 {
-	t_key	**slot;
+	t_key			**slot;
 	t_model_data	*m;
 
 	m = model_get_real();

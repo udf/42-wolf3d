@@ -6,13 +6,13 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:21 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:20:22 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:42:51 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "view.h"
 
-static	t_view_data *view_get(void)
+static t_view_data	*view_get(void)
 {
 	static t_view_data view_data;
 
@@ -39,7 +39,7 @@ int					view_init(int w, int h, float fov)
 		SDL_TEXTUREACCESS_STREAMING, w, h);
 	if (!v->buf.tex)
 		return (1);
-	if (!(v->UI_Tex = texture_sys_get("inventory")))
+	if (!(v->ui_tex = texture_sys_get("inventory")))
 		return (1);
 	return (0);
 }
@@ -56,8 +56,8 @@ void				view_free(void)
 
 void				view_update(void)
 {
-	const t_model_data *m = model_get();
-	t_view_data *v;
+	const t_model_data	*m = model_get();
+	t_view_data			*v;
 
 	v = view_get();
 	SDL_LockTexture(v->buf.tex, NULL, (void **)&v->buf.pixels, &v->buf.pitch);

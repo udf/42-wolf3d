@@ -6,13 +6,13 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 00:03:33 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 19:37:35 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:40:55 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "texture_sys.h"
 
-static t_vec		*_get_vec(void)
+static t_vec		*get_vec(void)
 {
 	static t_vec	textures;
 
@@ -21,28 +21,7 @@ static t_vec		*_get_vec(void)
 	return (&textures);
 }
 
-static Uint32		surface_get_pixel(SDL_Surface *surface, int x, int y)
-{
-	const int bpp = surface->format->BytesPerPixel;
-	const Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
-
-	if (bpp == 1)
-		return *p;
-	if (bpp == 2)
-		return (*(Uint16 *)p);
-	if (bpp == 3)
-	{
-		if(SDL_BYTEORDER == SDL_BIG_ENDIAN)
-			return ((Uint32)(p[0] << 16 | p[1] << 8 | p[2]));
-		else
-			return ((Uint32)(p[0] | p[1] << 8 | p[2] << 16));
-	}
-	if (bpp == 4)
-		return (*(Uint32 *)p);
-	return (0);
-}
-
-static void			surface_to_tex(SDL_Surface	*surface, t_texture	*tex)
+static void			surface_to_tex(SDL_Surface *surface, t_texture *tex)
 {
 	int			x;
 	int			y;
@@ -95,8 +74,8 @@ t_texture			*texture_sys_get(char *filename)
 	t_loaded_texture	ret;
 
 	i = 0;
-	textures = (t_loaded_texture *)_get_vec()->data;
-	while (i < _get_vec()->length)
+	textures = (t_loaded_texture *)get_vec()->data;
+	while (i < get_vec()->length)
 	{
 		if (ft_strncmp(textures[i].filename, filename, 16) == 0)
 			return (textures[i].texture);
@@ -111,23 +90,22 @@ t_texture			*texture_sys_get(char *filename)
 	printf("texas: Loading %s from %s\n", ret.filename, path);
 	ret.texture = load_bmp(path);
 	if (ret.texture)
-		vec_append(_get_vec(), &ret);
+		vec_append(get_vec(), &ret);
 	return (ret.texture);
 }
 
-void				texture_sys_free()
+void				texture_sys_free(void)
 {
 	size_t				i;
 	t_loaded_texture	*textures;
-	i = 0;
 
-	//textures = (t_loaded_texture *)texas->data;
-	textures = (t_loaded_texture *)(_get_vec()->data);
-	while (i < _get_vec()->length)
+	i = 0;
+	textures = (t_loaded_texture *)(get_vec()->data);
+	while (i < get_vec()->length)
 	{
 		free(textures[i].texture->data);
 		free(textures[i].texture);
 		i++;
 	}
-	vec_free(_get_vec());
+	vec_free(get_vec());
 }

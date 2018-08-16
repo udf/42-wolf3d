@@ -6,13 +6,13 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:46:12 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/15 00:24:05 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:22:50 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-static void die(int code, char *pre_msg)
+static void	die(int code, char *pre_msg)
 {
 	if (pre_msg)
 		ft_putstr_fd(pre_msg, 2);
@@ -25,7 +25,7 @@ static void die(int code, char *pre_msg)
 	exit(code);
 }
 
-static void loop(void)
+static void	loop(void)
 {
 	Uint32		last_ticks;
 	ssize_t		elapsed_ticks;
@@ -44,7 +44,7 @@ static void loop(void)
 	}
 }
 
-int	main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	if (ac <= 1)
 		die(1, "No map file provided");

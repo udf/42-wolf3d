@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 18:49:53 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 22:09:25 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:30:00 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	process_player_token(t_player *me, char c, t_ip2d pos)
 
 int	process_wall_token(t_cell *cell, t_wall walls[256], char c)
 {
-	static char		tmp_name[4] = {'W', '\0', '\0', '\0'};
-	const unsigned char i = (unsigned char)c;
+	static char			tmp_name[4] = {'W', '\0', '\0', '\0'};
+	const unsigned char	i = (unsigned char)c;
 
 	if (!walls[i].tex_n)
 	{

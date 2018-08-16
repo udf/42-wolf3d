@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 22:10:04 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 23:44:55 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:22:35 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 float	mod_deg(float deg)
 {
 	const float n = 360.0f;
+
 	return (fmodf(fmodf(deg, n) + n, n));
 }
 

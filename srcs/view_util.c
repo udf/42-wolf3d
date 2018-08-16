@@ -6,13 +6,13 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 19:44:13 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 22:12:37 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:25:02 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "view.h"
 
-int		iroundf(float v)
+int			iroundf(float v)
 {
 	return ((int)roundf(v));
 }
@@ -27,7 +27,7 @@ t_frange	make_fov_range(float rot, float fov)
 	return (r);
 }
 
-Uint32	*buf_pixel(t_buf *buf, int x, int y)
+Uint32		*buf_pixel(t_buf *buf, int x, int y)
 {
 	const int pitch = buf->pitch / (int)sizeof(Uint32);
 

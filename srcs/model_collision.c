@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 22:51:51 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 23:04:17 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:25:50 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static int	try_operate_door(t_p2d pos)
 
 	m = model_get_real();
 	if (!cell || cell->type != DOOR)
-		return 0;
+		return (0);
 	if (cell->door->anim_state > 0)
-		return 0;
+		return (0);
 	slot = NULL;
 	if (m->me.key2 && m->me.key2->colour == cell->door->colour)
 		slot = &m->me.key2;
@@ -47,7 +47,7 @@ static int	try_operate_door(t_p2d pos)
 	*slot = NULL;
 	((t_cell *)cell)->door->open_ticks = 6000;
 	printf("opening door at %zd %zd\n", (ssize_t)pos.x, (ssize_t)pos.y);
-	return 1;
+	return (1);
 }
 
 void		model_do_collision(t_p2d *target, t_p2d offset)

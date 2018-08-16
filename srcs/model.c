@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:21 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/15 00:26:53 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:24:49 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void					model_free(void)
 	vec_free(&m->world.things);
 }
 
-const t_cell	*model_get_cell(t_p2d pos)
+const t_cell			*model_get_cell(t_p2d pos)
 {
 	const t_ip2d	cpos = {(ssize_t)pos.x, (ssize_t)pos.y};
 	t_world			*w;

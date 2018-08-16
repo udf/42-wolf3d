@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 23:56:56 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/09 19:37:52 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 10:41:15 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct	s_loaded_texture
 	t_texture	*texture;
 }				t_loaded_texture;
 
-
-t_texture	*texture_sys_get(char *filename);
-void		texture_sys_free();
+t_texture		*texture_sys_get(char *filename);
+void			texture_sys_free();
+Uint32			surface_get_pixel(SDL_Surface *surface, int x, int y);
 
 #endif
