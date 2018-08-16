@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 23:34:02 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 20:42:27 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ typedef struct		s_key
 
 typedef struct		s_prop
 {
-	t_p2d			pos;
 	t_texture		*tex;
+	t_p2d			pos;
 }					t_prop;
 
 typedef enum		e_thing

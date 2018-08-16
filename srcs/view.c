@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:21 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:42:51 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 20:48:30 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int					view_init(int w, int h, float fov)
 		return (1);
 	if (!(v->ui_tex = texture_sys_get("inventory")))
 		return (1);
+	v->z_column = malloc(sizeof(float) * (size_t)v->h);
+	vec_init(&v->sprite_cache, sizeof(t_cached_sprite), 0);
 	return (0);
 }
 
@@ -49,6 +51,7 @@ void				view_free(void)
 	t_view_data *v;
 
 	v = view_get();
+	free(v->z_column);
 	SDL_DestroyTexture(v->buf.tex);
 	SDL_DestroyRenderer(v->ren);
 	SDL_DestroyWindow(v->win);

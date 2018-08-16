@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 21:58:53 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:44:02 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 12:39:42 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <math.h>
 # include <unistd.h>
+# include "libft.h"
 # include "SDL.h"
 
 typedef struct		s_p2d
@@ -30,7 +31,7 @@ typedef struct		s_ip2d
 }					t_ip2d;
 
 float				mod_deg(float deg);
-int					is_angle_between(float a, float start, float end);
+int					is_angle_between(float a, t_frange range);
 void				post_exit_event(void);
 
 float				sin_deg(float deg);

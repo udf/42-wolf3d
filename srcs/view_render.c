@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 19:41:24 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:23:37 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 20:48:18 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void		draw_column(t_view_data *v, int screen_x, t_hit hit, float dist)
 		t_y = iroundf(ft_fmapf(y, yr, (t_frange){1, (float)hit.tex->h}) - 1);
 		*buf_pixel(&v->buf, screen_x, iroundf(y)) =
 			*((Uint32 *)&hit.tex->data[t_x + t_y * hit.tex->h]);
+		v->z_column[iroundf(y)] = dist;
 		y++;
 	}
 }
@@ -67,7 +68,7 @@ static float	ray_dist(float a, t_p2d o, t_p2d h)
 	return (fabsf((o.x - h.x) * cos_deg(a) + (o.y - h.y) * sin_deg(a)));
 }
 
-static void		draw_cast(t_view_data *v, const t_player *me, int x, t_ray r)
+static void		draw_cast(t_view_data *v, const t_model_data *m, int x, t_ray r)
 {
 	t_p2d	p_t;
 	t_p2d	p_d;
@@ -81,24 +82,29 @@ static void		draw_cast(t_view_data *v, const t_player *me, int x, t_ray r)
 	{
 		hit.pos.x += cos_deg(r.a) * 0.0001f;
 		hit.pos.y += sin_deg(r.a) * 0.0001f;
-		draw_cast(v, me, x, (t_ray){hit.pos, r.a});
+		draw_cast(v, m, x, (t_ray){hit.pos, r.a});
 	}
-	draw_column(v, x, hit, ray_dist(me->rot, me->pos, hit.pos));
-	// TODO: draw sprites (z-buffer pls)
+	draw_column(v, x, hit, ray_dist(m->me.rot, m->me.pos, hit.pos));
+	view_sprites_draw_column(v, x, r);
 }
 
 void			view_render_main(t_view_data *v, const t_model_data *m)
 {
-	const t_frange	fov_r = make_fov_range(m->me.rot, v->fov);
-	int				x;
-	t_ray			ray;
+	int		x;
+	int		i;
+	t_ray	ray;
 
+	v->fov_r = make_fov_range(m->me.rot, v->fov);
+	view_sprites_compute(v, m);
 	x = 0;
 	while (x < v->w)
 	{
-		ray.a = ft_lmapf(x + 1, (t_lrange){1, v->w}, fov_r);
+		i = -1;
+		while (++i < v->h)
+			v->z_column[i] = INFINITY;
+		ray.a = ft_lmapf(x + 1, (t_lrange){1, v->w}, v->fov_r);
 		ray.p = m->me.pos;
-		draw_cast(v, &m->me, x, ray);
+		draw_cast(v, m, x, ray);
 		x++;
 	}
 }

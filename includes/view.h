@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:42:27 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 21:04:09 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,26 @@ typedef struct		s_buf
 	int				pitch;
 }					t_buf;
 
+typedef struct		s_cached_sprite
+{
+	t_texture		*tex;
+	t_frange		ar;
+	float			dist;
+	float			scale;
+}					t_cached_sprite;
+
 typedef struct		s_view_data
 {
-	int				w;
-	int				h;
-	float			fov;
+	t_vec			sprite_cache;
+	t_buf			buf;
 	SDL_Window		*win;
 	SDL_Renderer	*ren;
 	t_texture		*ui_tex;
-	t_buf			buf;
+	t_frange		fov_r;
+	int				w;
+	int				h;
+	float			fov;
+	float			*z_column;
 }					t_view_data;
 
 /*
@@ -67,6 +78,8 @@ void				view_render_bk(t_view_data *v);
 void				view_render_main(t_view_data *v, const t_model_data *m);
 void				view_render_ui(t_view_data *v, const t_model_data *m);
 t_hit				view_raycast(float theta, t_p2d p, t_p2d p_delta);
+void				view_sprites_compute(t_view_data *v, const t_model_data *m);
+void				view_sprites_draw_column(t_view_data *v, int x, t_ray ray);
 
 /*
 ** Utility
