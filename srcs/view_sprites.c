@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 14:16:17 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 22:25:49 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/17 13:10:43 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,15 @@ void		view_sprites_draw_column(t_view_data *v, int scr_x, t_ray ray)
 	int				tex_x;
 
 	i = 0;
+	ray.a = fmodf(ray.a, 360.0f);
 	while (i < v->sprite_cache.length)
 	{
 		sprite = vec_get(&v->sprite_cache, i);
+		tmp_a = ray.a;
+		while (tmp_a < sprite->ar.s)
+			tmp_a += 360.0f;
 		if (sprite->tex && is_angle_between(ray.a, sprite->ar))
 		{
-			tmp_a = ray.a;
-			while (tmp_a < sprite->ar.s)
-				tmp_a += 360.0f;
 			tex_x = iroundf(ft_fmapf(tmp_a, sprite->ar,
 				(t_frange){1, (float)sprite->tex->w}) - 1);
 			draw_sprite_column(v, scr_x, tex_x, sprite);
@@ -81,7 +82,7 @@ void	view_sprites_compute(t_view_data *v, const t_model_data *m)
 		}
 		else if (thing->type == PROP)
 			cache.tex = thing->prop.tex;
-		cache.dist = ray_dist(m->me.rot, m->me.pos, thing->prop.pos);
+		cache.dist = p2d_dist(m->me.pos, thing->prop.pos);
 		cache.ar = make_fov_range(p2d_angle(m->me.pos, thing->prop.pos),
 			v->fov / cache.dist * cache.scale);
 		vec_append(&v->sprite_cache, &cache);
