@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 18:49:53 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:30:00 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/17 12:24:47 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	process_door_token(t_cell *cell, t_vec *doors, char c)
 	door.colour = c;
 	vec_append(doors, &door);
 	cell->type = DOOR;
-	cell->door = (t_door *)vec_get_back(doors);
+	cell->door = (t_door *)(doors->length - 1);
 	return (0);
 }
 

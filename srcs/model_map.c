@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:08:43 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:35:47 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/17 12:25:19 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,21 @@ static int		process_line(t_model_data *m, char *line, ssize_t line_n)
 	return (0);
 }
 
+static void fix_door_ptrs(t_model_data *m)
+{
+	size_t i;
+	t_cell *cell;
+
+	i = 0;
+	while (i < m->world.cells.length)
+	{
+		cell = vec_get(&m->world.cells, i);
+		if (cell->type == DOOR)
+			cell->door = vec_get(&m->world.doors, (size_t)cell->door);
+		i++;
+	}
+}
+
 int				model_map_load(const char *map_path)
 {
 	int				fd;
@@ -101,5 +116,6 @@ int				model_map_load(const char *map_path)
 	}
 	close(fd);
 	m->world.h = line_n;
+	fix_door_ptrs(m);
 	return (0);
 }
