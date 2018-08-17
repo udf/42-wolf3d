@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 14:16:17 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/17 13:10:43 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/17 19:43:58 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,15 @@ void	view_sprites_compute(t_view_data *v, const t_model_data *m)
 	{
 		thing = vec_get((t_vec *)&m->world.things, i);
 		cache.tex = NULL;
-		cache.scale = 1;
+		cache.scale = thing->type == KEY ? 0.25f : 1;
 		if (thing->type == KEY && !thing->key.held)
-		{
-			cache.scale = 0.25f;
 			cache.tex = thing->key.tex;
-		}
 		else if (thing->type == PROP)
 			cache.tex = thing->prop.tex;
 		cache.dist = p2d_dist(m->me.pos, thing->prop.pos);
 		cache.ar = make_fov_range(p2d_angle(m->me.pos, thing->prop.pos),
 			v->fov / cache.dist * cache.scale);
+		cache.dist = ray_dist(m->me.rot, m->me.pos, thing->prop.pos);
 		vec_append(&v->sprite_cache, &cache);
 		i++;
 	}
