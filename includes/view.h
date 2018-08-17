@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/17 15:52:43 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/17 22:05:46 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ typedef struct		s_cached_sprite
 {
 	t_texture		*tex;
 	t_frange		ar;
+	t_p2d			scale;
 	float			dist;
-	float			scale;
+	char			flip_x;
 }					t_cached_sprite;
 
 typedef struct		s_view_data

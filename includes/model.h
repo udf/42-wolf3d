@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 22:18:02 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/17 22:24:39 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct		s_key
 	t_texture		*tex;
 	t_p2d			pos;
 	short			respawn_ticks;
+	float			rot_off;
 	char			held;
 	char			colour;
 }					t_key;
