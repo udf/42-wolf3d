@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 18:49:53 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/17 22:28:01 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/18 14:25:20 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	process_key_token(t_vec *things, char c, t_ip2d pos)
 	thing.key.colour = c;
 	thing.key.pos.x = (float)pos.x + 0.5f;
 	thing.key.pos.y = (float)pos.y + 0.5f;
+	thing.key.o_pos = thing.key.pos;
 	thing.key.rot_off = (float)rand() / (float)RAND_MAX * 360.0f;
 	vec_append(things, &thing);
 	return (0);
