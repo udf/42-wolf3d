@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 19:44:13 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 22:24:59 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 11:11:15 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ Uint32		*buf_pixel(t_buf *buf, int x, int y)
 float		ray_dist(float a, t_p2d o, t_p2d h)
 {
 	return (fabsf((o.x - h.x) * cos_deg(a) + (o.y - h.y) * sin_deg(a)));
+}
+
+t_p2d		p2d_offset(t_p2d pos, char is_vert, float x, float y)
+{
+	return (t_p2d){pos.x - (is_vert && x), pos.y - (!is_vert && y)};
 }

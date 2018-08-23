@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 23:50:30 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 23:33:59 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 11:10:47 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ static t_p2d	to_dir(float theta)
 static t_hit	hit_test(t_p2d dir, t_p2d pos, char is_vert)
 {
 	const t_cell	*cell;
+	const t_cell	*n_cell;
 	t_hit			hit;
 
 	hit = (t_hit){NULL, {-1, -1}, fmodf(is_vert ? pos.y : pos.x, 1.0f), 0, 1};
 	hit.pos = pos;
-	pos.x -= (is_vert && dir.x < 0);
-	pos.y -= (!is_vert && dir.y < 0);
-	cell = model_get_cell(pos);
+	n_cell = model_get_cell(p2d_offset(pos, is_vert, dir.x > 0, dir.y > 0));
+	cell = model_get_cell(p2d_offset(pos, is_vert, dir.x < 0, dir.y < 0));
+	n_cell = (!n_cell || n_cell->type != DOOR) ? cell : n_cell;
 	if (cell && cell->type == WALL)
 	{
 		if (is_vert)
@@ -47,10 +48,10 @@ static t_hit	hit_test(t_p2d dir, t_p2d pos, char is_vert)
 		else
 			hit.tex = (dir.y > 0 ? cell->wall->tex_n : cell->wall->tex_s);
 	}
-	else if (cell && cell->type == DOOR)
+	else if (n_cell && n_cell->type == DOOR)
 	{
-		hit.tex = cell->door->tex;
-		hit.v_shift = (float)cell->door->anim_state / 101.0f;
+		hit.tex = n_cell->door->tex;
+		hit.v_shift = (float)n_cell->door->anim_state / 101.0f;
 	}
 	else if (cell)
 		hit.valid = 0;
