@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 22:51:51 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 22:14:50 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 15:05:24 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static int	try_operate_door(t_p2d pos)
 	(*slot)->respawn_ticks = 6000;
 	*slot = NULL;
 	((t_cell *)cell)->door->open_ticks = 6000;
-	printf("opening door at %zd %zd\n", (ssize_t)pos.x, (ssize_t)pos.y);
 	return (1);
 }
 

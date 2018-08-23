@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 13:49:29 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/14 22:13:21 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 15:01:31 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "SDL.h"
 
 # include "libft.h"
-
-# include <stdio.h> //TODO: remove
 
 # include "model.h"
 # include "view.h"

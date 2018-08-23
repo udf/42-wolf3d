@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 19:41:24 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/23 13:41:16 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 14:59:49 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void		draw_column(t_view_data *v, int screen_x, t_hit hit, float dist)
 	}
 }
 
-static int		hit_has_alpha(t_hit	hit)
+static int		hit_has_alpha(t_hit hit)
 {
 	int y;
 
@@ -104,8 +104,6 @@ void			view_render_main(t_view_data *v, const t_model_data *m)
 	t_ray	ray;
 
 	v->fov_r = make_fov_range(m->me.rot, v->fov);
-	// view_raycast(359.999969f, (t_p2d){15, 12}, (t_p2d){0.999999f, 0.999999f});
-	// exit(0);
 	view_sprites_compute(v, m);
 	x = 0;
 	while (x < v->w)

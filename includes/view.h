@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/23 13:26:51 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 15:01:32 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,5 @@ t_frange			make_fov_range(float rot, float fov);
 Uint32				*buf_pixel(t_buf *buf, int x, int y);
 float				ray_dist(float a, t_p2d o, t_p2d h);
 t_p2d				p2d_offset(t_p2d pos, char is_vert, float x, float y);
-
 
 #endif

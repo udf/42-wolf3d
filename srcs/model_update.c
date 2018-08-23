@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 23:06:43 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/18 14:24:27 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 15:05:43 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static void	update_keys(t_model_data *m, ssize_t ticks)
 		key->respawn_ticks = (short)MAX(key->respawn_ticks - ticks, 0);
 		if (key->respawn_ticks <= 0)
 		{
-			printf("key respawn\n");
 			key->held = 0;
 			key->pos = key->o_pos;
 		}

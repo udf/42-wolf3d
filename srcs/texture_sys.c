@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 00:03:33 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:40:55 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 15:05:42 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ t_texture			*texture_sys_get(char *filename)
 	ft_strncat(path, "assets/", 127);
 	ft_strncat(path, ret.filename, 127);
 	ft_strncat(path, ".bmp", 127);
-	printf("texas: Loading %s from %s\n", ret.filename, path);
 	ret.texture = load_bmp(path);
 	if (ret.texture)
 		vec_append(get_vec(), &ret);

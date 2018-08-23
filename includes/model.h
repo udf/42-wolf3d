@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 18:24:11 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/18 14:23:14 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 16:11:49 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@
 /*
 ** World cells
 */
+typedef enum		e_cell
+{
+	EMPTY,
+	WALL,
+	DOOR
+}					t_e_cell;
+
 typedef struct		s_wall
 {
 	t_texture		*tex_n;
@@ -40,28 +47,25 @@ typedef struct		s_door
 	char			colour;
 }					t_door;
 
-typedef enum		e_cell
-{
-	EMPTY,
-	WALL,
-	DOOR
-}					t_e_cell;
-
 typedef struct		s_cell
 {
 	t_e_cell		type;
-	union
-	{
-		t_wall		*wall;
-		t_door		*door;
-	};
+	t_wall			*wall;
+	t_door			*door;
 }					t_cell;
 
 /*
 ** Things
 */
+typedef enum		e_thing
+{
+	KEY,
+	PROP
+}					t_e_thing;
+
 typedef struct		s_key
 {
+	t_e_thing		type;
 	t_texture		*tex;
 	t_p2d			pos;
 	t_p2d			o_pos;
@@ -73,24 +77,16 @@ typedef struct		s_key
 
 typedef struct		s_prop
 {
+	t_e_thing		type;
 	t_texture		*tex;
 	t_p2d			pos;
 }					t_prop;
 
-typedef enum		e_thing
-{
-	KEY,
-	PROP
-}					t_e_thing;
-
-typedef struct		s_thing
+typedef union		u_thing
 {
 	t_e_thing		type;
-	union
-	{
-		t_key		key;
-		t_prop		prop;
-	};
+	t_key			key;
+	t_prop			prop;
 }					t_thing;
 
 typedef struct		s_world

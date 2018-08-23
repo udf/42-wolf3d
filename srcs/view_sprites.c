@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 14:16:17 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/17 22:24:25 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 15:12:43 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,10 @@ void		view_sprites_draw_column(t_view_data *v, int scr_x, t_ray ray)
 	}
 }
 
-
-
 static void	setup_cache(const t_thing *thing, t_cached_sprite *cache)
 {
-	const float r_time = (float)(SDL_GetTicks() % 1000) / 999.0f;
-	float wave;
+	const float	r_time = (float)(SDL_GetTicks() % 1000) / 999.0f;
+	float		wave;
 
 	cache->tex = NULL;
 	cache->scale = (t_p2d){1, 1};
@@ -76,7 +74,7 @@ static void	setup_cache(const t_thing *thing, t_cached_sprite *cache)
 	if (thing->type == KEY && !thing->key.held)
 	{
 		wave = sin_deg(r_time * 359.0f + thing->key.rot_off);
-		cache->flip_x = (wave < 0) ;
+		cache->flip_x = (wave < 0);
 		cache->scale.y = 0.25f;
 		cache->scale.x = 0.25f * fabsf(wave);
 		cache->tex = thing->key.tex;
@@ -85,7 +83,7 @@ static void	setup_cache(const t_thing *thing, t_cached_sprite *cache)
 		cache->tex = thing->prop.tex;
 }
 
-void	view_sprites_compute(t_view_data *v, const t_model_data *m)
+void		view_sprites_compute(t_view_data *v, const t_model_data *m)
 {
 	size_t			i;
 	t_thing			*thing;

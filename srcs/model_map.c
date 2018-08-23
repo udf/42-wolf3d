@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:08:43 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/23 14:55:36 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 14:59:46 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int		process_line(t_model_data *m, char *line, ssize_t line_n)
 	return (0);
 }
 
-static void fix_door_ptrs(t_model_data *m)
+static void		fix_door_ptrs(t_model_data *m)
 {
 	size_t i;
 	t_cell *cell;

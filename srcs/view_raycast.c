@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 23:50:30 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/23 13:59:57 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 15:14:13 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_p2d	to_dir(float theta)
 
 static t_hit	hit_test(t_p2d dir, t_p2d pos, char is_vert)
 {
-	const float hit_perc = fmodf(is_vert ? pos.y : pos.x, 1.0f);
+	const float		hit_perc = fmodf(is_vert ? pos.y : pos.x, 1.0f);
 	const t_cell	*cell;
 	const t_cell	*n_cell;
 	t_hit			hit;
@@ -43,10 +43,9 @@ static t_hit	hit_test(t_p2d dir, t_p2d pos, char is_vert)
 	n_cell = (!n_cell || n_cell->type != DOOR) ? cell : n_cell;
 	if (cell && cell->type == WALL)
 	{
+		hit.tex = (dir.y > 0 ? cell->wall->tex_n : cell->wall->tex_s);
 		if (is_vert)
 			hit.tex = (dir.x > 0 ? cell->wall->tex_w : cell->wall->tex_e);
-		else
-			hit.tex = (dir.y > 0 ? cell->wall->tex_n : cell->wall->tex_s);
 	}
 	else if (n_cell && n_cell->type == DOOR)
 	{
@@ -95,12 +94,9 @@ t_hit			view_raycast(float theta, t_p2d p, t_p2d p_delta)
 	const t_p2d	step = compute_step(theta, dir);
 	t_p2d		inter;
 	t_hit		hit;
-	int safety = 0;
 
-	SDL_SetError("params: %f, {%f, %f}, {%f, %f}\n",
-		theta, p.x, p.y, p_delta.x, p_delta.y);
 	inter = compute_inter(theta, dir, &p, p_delta);
-	while (safety < 1000)
+	while (1)
 	{
 		while (VAL_CAN_MOVE(inter.y, step.y, p.y) || VAL_CLOSE(inter.y, p.y))
 		{
@@ -108,7 +104,6 @@ t_hit			view_raycast(float theta, t_p2d p, t_p2d p_delta)
 				return (hit);
 			p.x += dir.x;
 			inter.y += step.y;
-			safety++;
 		}
 		while (VAL_CAN_MOVE(inter.x, step.x, p.x) || VAL_CLOSE(inter.x, p.x))
 		{
@@ -116,13 +111,7 @@ t_hit			view_raycast(float theta, t_p2d p, t_p2d p_delta)
 				return (hit);
 			p.y += dir.y;
 			inter.x += step.x;
-			safety++;
 		}
-		safety++;
 	}
-	// TODO: try to hit this
-	printf("more than 1000 ray cast steps, wtf?\n");
-	printf(SDL_GetError());
-	exit(69);
 	return (t_hit){NULL, {0, 0}, 0, 0, 0};
 }

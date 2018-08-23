@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 23:56:56 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/16 10:41:15 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 15:03:24 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "SDL.h"
 # include "libft.h"
 # include "vec.h"
-# include <stdio.h>
 
 typedef struct	s_pixel
 {
