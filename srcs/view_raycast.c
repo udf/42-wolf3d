@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 23:50:30 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/23 11:10:47 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 13:30:57 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ static t_p2d	to_dir(float theta)
 
 static t_hit	hit_test(t_p2d dir, t_p2d pos, char is_vert)
 {
+	const float hit_perc = fmodf(is_vert ? pos.y : pos.x, 1.0f);
 	const t_cell	*cell;
 	const t_cell	*n_cell;
 	t_hit			hit;
 
-	hit = (t_hit){NULL, {-1, -1}, fmodf(is_vert ? pos.y : pos.x, 1.0f), 0, 1};
-	hit.pos = pos;
+	hit = (t_hit){NULL, pos, 0, 0, 1};
 	n_cell = model_get_cell(p2d_offset(pos, is_vert, dir.x > 0, dir.y > 0));
 	cell = model_get_cell(p2d_offset(pos, is_vert, dir.x < 0, dir.y < 0));
 	n_cell = (!n_cell || n_cell->type != DOOR) ? cell : n_cell;
@@ -55,6 +55,8 @@ static t_hit	hit_test(t_p2d dir, t_p2d pos, char is_vert)
 	}
 	else if (cell)
 		hit.valid = 0;
+	hit.tex_x = hit.tex ? iroundf(ft_fmapf(hit_perc, (t_frange){0, 1},
+		(t_frange){1, (float)hit.tex->h})) - 1 : 0;
 	return (hit);
 }
 
