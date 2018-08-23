@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 23:50:30 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/17 22:55:36 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/16 23:33:59 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,13 @@ static t_p2d	to_dir(float theta)
 static t_hit	hit_test(t_p2d dir, t_p2d pos, char is_vert)
 {
 	const t_cell	*cell;
-	const t_cell	*near_cell;
 	t_hit			hit;
 
 	hit = (t_hit){NULL, {-1, -1}, fmodf(is_vert ? pos.y : pos.x, 1.0f), 0, 1};
 	hit.pos = pos;
-	near_cell = model_get_cell((t_p2d){pos.x - (is_vert && dir.x > 0),
-		pos.y - (!is_vert && dir.y > 0)});
-	cell = model_get_cell((t_p2d){pos.x - (is_vert && dir.x < 0),
-		pos.y - (!is_vert && dir.y < 0)});
+	pos.x -= (is_vert && dir.x < 0);
+	pos.y -= (!is_vert && dir.y < 0);
+	cell = model_get_cell(pos);
 	if (cell && cell->type == WALL)
 	{
 		if (is_vert)
@@ -49,10 +47,10 @@ static t_hit	hit_test(t_p2d dir, t_p2d pos, char is_vert)
 		else
 			hit.tex = (dir.y > 0 ? cell->wall->tex_n : cell->wall->tex_s);
 	}
-	else if (near_cell && near_cell->type == DOOR)
+	else if (cell && cell->type == DOOR)
 	{
-		hit.tex = near_cell->door->tex;
-		hit.v_shift = (float)near_cell->door->anim_state / 101.0f;
+		hit.tex = cell->door->tex;
+		hit.v_shift = (float)cell->door->anim_state / 101.0f;
 	}
 	else if (cell)
 		hit.valid = 0;
