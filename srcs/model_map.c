@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:08:43 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/17 12:25:19 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 14:55:36 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int		process_token(t_model_data *m, const char *str,
 	int		error;
 	t_cell	cell;
 
-	error = (str[0] == '_' && str[1] != ' ');
+	error = !(str[0] == '_' && str[1] == ' ');
 	cell.type = EMPTY;
 	if (str[0] == 'W')
 		error = process_wall_token(&cell, m->world.walls, str[1]);
@@ -34,7 +34,7 @@ static int		process_token(t_model_data *m, const char *str,
 		error = process_player_token(&m->me, str[1], pos);
 	if (error)
 	{
-		return (SDL_SetError("%s\nUnknown token \"%.*s\" on line %zd;token %zd",
+		return (SDL_SetError("%s\nUnknown token \"%.*s\" on line %zd:token %zd",
 			SDL_GetError(), (int)len, str, pos.y + 1, pos.x + 1));
 	}
 	vec_append(&m->world.cells, &cell);
