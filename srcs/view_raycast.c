@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 23:50:30 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/23 13:30:57 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 13:45:38 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_hit			view_raycast(float theta, t_p2d p, t_p2d p_delta)
 				return (hit);
 			p.x += dir.x;
 			inter.y += step.y;
+			safety++;
 		}
 		while (VAL_CAN_MOVE(inter.x, step.x, p.x) || VAL_CLOSE(inter.x, p.x))
 		{
@@ -115,6 +116,7 @@ t_hit			view_raycast(float theta, t_p2d p, t_p2d p_delta)
 				return (hit);
 			p.y += dir.y;
 			inter.x += step.x;
+			safety++;
 		}
 		safety++;
 	}
