@@ -6,7 +6,7 @@
 /*   By: mhoosen <mhoosen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 23:50:30 by mhoosen           #+#    #+#             */
-/*   Updated: 2018/08/23 13:45:38 by mhoosen          ###   ########.fr       */
+/*   Updated: 2018/08/23 13:59:57 by mhoosen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_p2d	to_dir(float theta)
 		ret.y = 1;
 	else if (theta > 180 && theta < 360)
 		ret.y = -1;
-	if ((theta > 0 && theta < 90) || (theta > 270 && theta < 360))
+	if ((theta >= 0 && theta < 90) || (theta > 270 && theta < 360))
 		ret.x = 1;
 	else if (theta > 90 && theta < 270)
 		ret.x = -1;
