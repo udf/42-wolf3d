@@ -14,30 +14,37 @@
 
 void			view_render_bk(t_view_data *v)
 {
-	int x;
-	int y;
+	static Uint32 *bk_pix = NULL;
 
-	y = 0;
-	while (y < v->h / 2)
-	{
-		x = 0;
-		while (x < v->w)
+	if (!bk_pix) {
+		bk_pix = malloc(sizeof(Uint32) * (size_t)v->w * (size_t)v->h);
+		int x;
+		int y;
+
+		y = 0;
+		while (y < v->h / 2)
 		{
-			*buf_pixel(&v->buf, x, y) = 0x60606060;
-			x++;
+			x = 0;
+			while (x < v->w)
+			{
+				bk_pix[x + v->w * y] = 0x60606060;
+				x++;
+			}
+			y++;
 		}
-		y++;
-	}
-	while (y < v->h)
-	{
-		x = 0;
-		while (x < v->w)
+		while (y < v->h)
 		{
-			*buf_pixel(&v->buf, x, y) = 0x80808080;
-			x++;
+			x = 0;
+			while (x < v->w)
+			{
+				bk_pix[x + v->w * y] = 0x80808080;
+				x++;
+			}
+			y++;
 		}
-		y++;
 	}
+
+	memcpy(v->buf.pixels, bk_pix, sizeof(Uint32) * (size_t)v->w * (size_t)v->h);
 }
 
 static void		draw_column(t_view_data *v, int screen_x, t_hit hit, float dist)
