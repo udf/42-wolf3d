@@ -76,6 +76,10 @@ static int		hit_has_alpha(t_hit hit)
 	return (0);
 }
 
+static float square(float a) {
+	return a * a;
+}
+
 static void		draw_cast(t_view_data *v, const t_model_data *m, int x, t_ray r)
 {
 	t_p2d	p_t;
@@ -92,7 +96,10 @@ static void		draw_cast(t_view_data *v, const t_model_data *m, int x, t_ray r)
 			hit.pos.y += sin_deg(r.a) * 0.0001f;
 			draw_cast(v, m, x, (t_ray){hit.pos, r.a});
 		}
-		draw_column(v, x, hit, ray_dist(m->me.rot, m->me.pos, hit.pos));
+		float h = sqrtf(square(m->me.pos.x - hit.pos.x) + square(m->me.pos.y - hit.pos.y));
+		float a = m->me.rot - r.a;
+		float d = cos_deg(a) * h;
+		draw_column(v, x, hit, d);
 	}
 	view_sprites_draw_column(v, x, r);
 }
